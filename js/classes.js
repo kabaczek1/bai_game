@@ -62,6 +62,7 @@ class Fighter extends Sprite {
     sprites,
     attackBox = { offset: {}, width: undefined, height: undefined },
     hitBox = { width: 50, height: 150 },
+    damage = 20,
   }) {
     super({
       position,
@@ -90,6 +91,7 @@ class Fighter extends Sprite {
     this.sprites = sprites;
     this.dead = false;
     this.canMove = true;
+    this.damage = damage;
 
     for (const sprite in this.sprites) {
       sprites[sprite].image = new Image();
@@ -126,6 +128,10 @@ class Fighter extends Sprite {
     } else {
       this.velocity.y += gravity;
     }
+
+    if (this.position.x <= 0) this.position.x = 0;
+    if (this.position.x >= canvas.width - this.width)
+      this.position.x = canvas.width - this.width;
   }
 
   attack() {

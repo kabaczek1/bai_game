@@ -14,11 +14,11 @@ function determineWinner({ player, enemy, timerId }) {
   clearTimeout(timerId);
   document.getElementById("label").style.display = "flex";
   if (player.health === enemy.health) {
-    document.getElementById("label").innerHTML = "tie";
+    document.getElementById("labelText").innerHTML = "tie";
   } else if (player.health > enemy.health) {
-    document.getElementById("label").innerHTML = "Player 1 wins!";
+    document.getElementById("labelText").innerHTML = "Player 1 wins!";
   } else if (player.health < enemy.health) {
-    document.getElementById("label").innerHTML = "Player 2 wins!";
+    document.getElementById("labelText").innerHTML = "Player 2 wins!";
   }
 }
 
@@ -34,4 +34,38 @@ function decreaseTimer() {
   if (timer == 0) {
     determineWinner({ player, enemy, timerId });
   }
+}
+
+function startGame() {
+  console.log("startgame");
+  showTitleScreen = false;
+  document.getElementById("titlescreen").style.display = "none";
+  decreaseTimer();
+  animate();
+}
+
+function restartGame() {
+  console.log("restartgame");
+  document.getElementById("label").style.display = "none";
+
+  player.position = { x: 100, y: 200 };
+  player.health = 100;
+  player.isAttacking = false;
+  player.dead = false;
+  player.image = player.sprites.idle.image;
+  player.canMove = true;
+
+  enemy.position = { x: 844, y: 200 };
+  enemy.health = 100;
+  enemy.isAttacking = false;
+  enemy.dead = false;
+  enemy.image = enemy.sprites.idle.image;
+  enemy.canMove = true;
+
+  clearTimeout(timerId);
+  timer = 11;
+  decreaseTimer();
+
+  document.getElementById("enemyHealth").style.width = enemy.health + "%";
+  document.getElementById("playerHealth").style.width = player.health + "%";
 }

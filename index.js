@@ -6,6 +6,8 @@ canvas.height = 576;
 
 const gravity = 0.7;
 
+let showTitleScreen = true;
+
 const background = new Sprite({
   position: {
     x: 0,
@@ -77,6 +79,7 @@ const player = new Fighter({
     width: 65,
     height: 150,
   },
+  damage: 30,
 });
 
 const enemy = new Fighter({
@@ -131,8 +134,6 @@ const enemy = new Fighter({
   },
 });
 
-console.log(enemy);
-
 const keys = {
   a: {
     pressed: false,
@@ -147,8 +148,6 @@ const keys = {
     pressed: false,
   },
 };
-
-decreaseTimer();
 
 function animate() {
   window.requestAnimationFrame(animate);
@@ -202,8 +201,7 @@ function animate() {
     player.isAttacking &&
     player.frameCurrent === 4
   ) {
-    console.log("player attack");
-    enemy.takeHit(20);
+    enemy.takeHit(player.damage);
     player.isAttacking = false;
     document.getElementById("enemyHealth").style.width = enemy.health + "%";
   }
@@ -218,8 +216,7 @@ function animate() {
     enemy.isAttacking &&
     enemy.frameCurrent === 2
   ) {
-    console.log("enemy attack");
-    player.takeHit(20);
+    player.takeHit(enemy.damage);
     enemy.isAttacking = false;
     document.getElementById("playerHealth").style.width = player.health + "%";
   }
@@ -233,8 +230,6 @@ function animate() {
   }
 }
 
-animate();
-
 window.addEventListener("keydown", (e) => {
   if (player.canMove) {
     switch (e.key) {
@@ -247,7 +242,7 @@ window.addEventListener("keydown", (e) => {
         player.lastKey = "a";
         break;
       case "w":
-        player.velocity.y = -20;
+        if (player.position.y >= 310) player.velocity.y = -20;
         break;
       case "s":
         player.attack();
@@ -266,7 +261,7 @@ window.addEventListener("keydown", (e) => {
         enemy.lastKey = "ArrowLeft";
         break;
       case "ArrowUp":
-        enemy.velocity.y = -20;
+        if (enemy.position.y >= 310) enemy.velocity.y = -20;
         break;
       case "ArrowDown":
         enemy.attack();
@@ -275,7 +270,11 @@ window.addEventListener("keydown", (e) => {
   }
 
   if (e.key == " ") {
-    console.log("space");
+    if (showTitleScreen) {
+      startGame();
+    } else {
+      restartGame();
+    }
   }
 });
 
