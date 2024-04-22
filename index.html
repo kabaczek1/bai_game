@@ -1,56 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+    </style>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Document</title>
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-  </style>
-</head>
+  <body>
+    <div style="position: relative; display: inline-block">
+      <div
+        style="
+          position: absolute;
+          display: flex;
+          width: 100%;
+          align-items: center;
+          padding: 20px;
+        "
+      >
+        <div
+          style="
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            border: solid 4px white;
+            border-right: 0px;
+          "
+        >
+          <div style="background-color: red; height: 30px; width: 100%"></div>
+          <div
+            id="playerHealth"
+            style="
+              position: absolute;
+              background-color: #818cf8;
+              height: 30px;
+              top: 0;
+              right: 0;
+              width: 100%;
+              bottom: 0;
+            "
+          ></div>
+        </div>
 
-<body>
-  <div style="position: relative; display: inline-block">
-    <div style="
-      position: absolute;
-      display: flex;
-      width: 100%;
-      align-items: center;
-      padding: 20px;
-    ">
-      <div style="position: relative; height: 30px; width: 100%; display: flex; justify-content: flex-end;">
-        <div style="background-color: yellow; height: 30px; width: 100%;"></div>
-        <div id="playerHealth"
-          style="position: absolute; background-color: blue; height: 30px; top: 0; right: 0; width: 100%; bottom: 0; ">
+        <div
+          id="timer"
+          style="
+            background-color: black;
+            color: white;
+            font-size: 30px;
+            font-family: monospace;
+            height: 50px;
+            width: 100px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: solid 4px white;
+          "
+        >
+          10
+        </div>
+
+        <div
+          style="
+            position: relative;
+            width: 100%;
+            border: solid 4px white;
+            border-left: 0px;
+          "
+        >
+          <div style="background-color: red; height: 30px"></div>
+          <div
+            id="enemyHealth"
+            style="
+              position: absolute;
+              background-color: #818cf8;
+              height: 30px;
+              top: 0;
+              right: 0;
+              left: 0;
+              bottom: 0;
+            "
+          ></div>
         </div>
       </div>
-
-      <div id="timer"
-        style="background-color: red; height: 100px; width: 100px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;">
-        10
+      <div
+        id="label"
+        style="
+          position: absolute;
+          color: white;
+          font-family: monospace;
+          display: none;
+          align-items: center;
+          justify-content: center;
+          top: 0;
+          bottom: 0;
+          right: 0;
+          left: 0;
+          font-size: 3rem;
+          -webkit-text-stroke: 1px black;
+        "
+      >
+        tie
       </div>
-
-      <div style="position: relative; height: 30px; width: 100%;">
-        <div style="background-color: yellow; height: 30px;"></div>
-        <div id="enemyHealth"
-          style="position: absolute; background-color: blue; height: 30px; top: 0; right: 0; left: 0; bottom: 0; ">
-        </div>
-      </div>
-
+      <canvas id="gamewindow"></canvas>
     </div>
-    <div id="label"
-      style="position: absolute; color: white; display: none; align-items: center; justify-content: center; top:0; bottom:0; right: 0; left: 0; font-size: 3rem; ">
-      tie
-    </div>
-    <canvas id="gamewindow"></canvas>
-  </div>
 
-  <script src="js/utils.js"></script>
-  <script src="js/classes.js"></script>
-  <script src="index.js"></script>
-</body>
-
+    <script src="js/utils.js"></script>
+    <script src="js/classes.js"></script>
+    <script src="index.js"></script>
+  </body>
 </html>
