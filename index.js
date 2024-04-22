@@ -26,7 +26,7 @@ const shop = new Sprite({
   framesMax: 6,
 });
 
-const player = new Fighter({
+let player = new Fighter({
   position: { x: 100, y: 200 },
   velocity: { x: 0, y: 0 },
   offset: { x: 0, y: 0 },
@@ -82,7 +82,63 @@ const player = new Fighter({
   damage: 30,
 });
 
-const enemy = new Fighter({
+let player2 = new Fighter({
+  position: { x: 100, y: 200 },
+  velocity: { x: 0, y: 0 },
+  offset: { x: 0, y: 0 },
+  imageSrc: "./img/samuraiHack/Idle.png",
+  framesMax: 8,
+  scale: 2.5,
+  offset: {
+    x: 215,
+    y: 157,
+  },
+  sprites: {
+    idle: {
+      imageSrc: "./img/samuraiHack/Idle.png",
+      framesMax: 8,
+    },
+    run: {
+      imageSrc: "./img/samuraiHack/Run.png",
+      framesMax: 8,
+    },
+    jump: {
+      imageSrc: "./img/samuraiHack/Jump.png",
+      framesMax: 2,
+    },
+    fall: {
+      imageSrc: "./img/samuraiHack/Fall.png",
+      framesMax: 2,
+    },
+    attack1: {
+      imageSrc: "./img/samuraiHack/Attack1.png",
+      framesMax: 6,
+    },
+    takeHit: {
+      imageSrc: "./img/samuraiHack/Take Hit.png",
+      framesMax: 4,
+    },
+    death: {
+      imageSrc: "./img/samuraiHack/Death.png",
+      framesMax: 6,
+    },
+  },
+  attackBox: {
+    offset: {
+      x: 100,
+      y: 50,
+    },
+    width: 160,
+    height: 50,
+  },
+  hitBox: {
+    width: 65,
+    height: 150,
+  },
+  damage: 30,
+});
+
+let enemy = new Fighter({
   position: { x: 844, y: 200 },
   velocity: { x: 0, y: 0 },
   offset: { x: -50, y: 0 },
@@ -94,6 +150,7 @@ const enemy = new Fighter({
     x: 215,
     y: 169,
   },
+  mirror: false,
   sprites: {
     idle: {
       imageSrc: "./img/kenji/Idle.png",
@@ -157,6 +214,14 @@ function animate() {
 
   c.fillStyle = "rgba(255, 255, 255, 0.1)";
   c.fillRect(0, 0, canvas.width, canvas.height);
+
+  if (player.position.x > enemy.position.x) {
+    enemy.mirror = true
+    player.mirror = true
+  } else {
+    enemy.mirror = false
+    player.mirror = false
+  }
 
   enemy.update();
   player.update();

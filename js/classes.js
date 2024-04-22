@@ -5,6 +5,7 @@ class Sprite {
     scale = 1,
     framesMax = 1,
     offset = { x: 0, y: 0 },
+    mirror = false,
   }) {
     this.position = position;
     this.width = 50;
@@ -17,20 +18,28 @@ class Sprite {
     this.framesElapsed = 0;
     this.framesHold = 5;
     this.offset = offset;
+    this.mirror = mirror; 
   }
 
   draw() {
+    if (this.mirror) {
+      c.save();
+      c.scale(-1, 1);
+    }
     c.drawImage(
       this.image,
       this.frameCurrent * (this.image.width / this.framesMax),
       0,
       this.image.width / this.framesMax,
       this.image.height,
-      this.position.x - this.offset.x,
+      this.mirror ? - this.position.x - this.width - this.offset.x : this.position.x - this.offset.x,
       this.position.y - this.offset.y,
       (this.image.width / this.framesMax) * this.scale,
       this.image.height * this.scale
     );
+    if (this.mirror) {
+      c.restore();
+    }
   }
 
   animateFrames() {
@@ -59,6 +68,7 @@ class Fighter extends Sprite {
     scale = 1,
     framesMax = 1,
     offset = { x: 0, y: 0 },
+    mirror,
     sprites,
     attackBox = { offset: {}, width: undefined, height: undefined },
     hitBox = { width: 50, height: 150 },
@@ -70,6 +80,7 @@ class Fighter extends Sprite {
       scale,
       framesMax,
       offset,
+      mirror,
     });
     this.frameCurrent = 0;
     this.framesElapsed = 0;
@@ -103,8 +114,11 @@ class Fighter extends Sprite {
     this.draw();
     if (!this.dead) this.animateFrames();
 
-    this.attackBox.position.x = this.position.x + this.attackBox.offset.x;
+    if (this.mirror && this.attackBox.offset.x > 0) this.attackBox.position.x = this.position.x - 2 * this.attackBox.offset.x;
+    else if (this.mirror && this.attackBox.offset.x < 0) this.attackBox.position.x = this.position.x + this.width;
+    else this.attackBox.position.x = this.position.x + this.attackBox.offset.x;
     this.attackBox.position.y = this.position.y + this.attackBox.offset.y;
+    
 
     // //attack box
     // c.fillStyle = "black";
