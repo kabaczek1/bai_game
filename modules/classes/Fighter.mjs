@@ -1,65 +1,7 @@
-class Sprite {
-  constructor({
-    position,
-    imageSrc,
-    scale = 1,
-    framesMax = 1,
-    offset = { x: 0, y: 0 },
-    mirror = false,
-  }) {
-    this.position = position;
-    this.width = 50;
-    this.height = 150;
-    this.image = new Image();
-    this.image.src = imageSrc;
-    this.scale = scale;
-    this.framesMax = framesMax;
-    this.frameCurrent = 0;
-    this.framesElapsed = 0;
-    this.framesHold = 5;
-    this.offset = offset;
-    this.mirror = mirror; 
-  }
+import { Sprite } from "./Sprite.mjs";
+import { canvas, gravity } from "../globals.mjs";
 
-  draw() {
-    if (this.mirror) {
-      c.save();
-      c.scale(-1, 1);
-    }
-    c.drawImage(
-      this.image,
-      this.frameCurrent * (this.image.width / this.framesMax),
-      0,
-      this.image.width / this.framesMax,
-      this.image.height,
-      this.mirror ? - this.position.x - this.width - this.offset.x : this.position.x - this.offset.x,
-      this.position.y - this.offset.y,
-      (this.image.width / this.framesMax) * this.scale,
-      this.image.height * this.scale
-    );
-    if (this.mirror) {
-      c.restore();
-    }
-  }
-
-  animateFrames() {
-    this.framesElapsed++;
-    if (this.framesElapsed % this.framesHold === 0) {
-      if (this.frameCurrent < this.framesMax - 1) {
-        this.frameCurrent++;
-      } else {
-        this.frameCurrent = 0;
-      }
-    }
-  }
-
-  update() {
-    this.draw();
-    this.animateFrames();
-  }
-}
-
-class Fighter extends Sprite {
+export class Fighter extends Sprite {
   constructor({
     position,
     velocity,
@@ -114,11 +56,12 @@ class Fighter extends Sprite {
     this.draw();
     if (!this.dead) this.animateFrames();
 
-    if (this.mirror && this.attackBox.offset.x > 0) this.attackBox.position.x = this.position.x - 2 * this.attackBox.offset.x;
-    else if (this.mirror && this.attackBox.offset.x < 0) this.attackBox.position.x = this.position.x + this.width;
+    if (this.mirror && this.attackBox.offset.x > 0)
+      this.attackBox.position.x = this.position.x - 2 * this.attackBox.offset.x;
+    else if (this.mirror && this.attackBox.offset.x < 0)
+      this.attackBox.position.x = this.position.x + this.width;
     else this.attackBox.position.x = this.position.x + this.attackBox.offset.x;
     this.attackBox.position.y = this.position.y + this.attackBox.offset.y;
-    
 
     // //attack box
     // c.fillStyle = "black";

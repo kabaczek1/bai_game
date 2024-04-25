@@ -1,4 +1,15 @@
-function rectangularCollision({ rectangle1, rectangle2 }) {
+import { animate } from "../index.js";
+import {
+  enemy,
+  player,
+  setShowTitleScreen,
+  setTimer,
+  timer,
+} from "./globals.mjs";
+
+export let timerId;
+
+export function rectangularCollision({ rectangle1, rectangle2 }) {
   return (
     rectangle1.attackBox.position.x + rectangle1.attackBox.width >=
       rectangle2.position.x &&
@@ -10,7 +21,7 @@ function rectangularCollision({ rectangle1, rectangle2 }) {
   );
 }
 
-function determineWinner({ player, enemy, timerId }) {
+export function determineWinner({ player, enemy, timerId }) {
   clearTimeout(timerId);
   document.getElementById("label").style.display = "flex";
   if (player.health === enemy.health) {
@@ -22,13 +33,10 @@ function determineWinner({ player, enemy, timerId }) {
   }
 }
 
-let timer = 10;
-let timerId;
-
-function decreaseTimer() {
+export function decreaseTimer() {
   timerId = setTimeout(decreaseTimer, 1000);
   if (timer > 0) {
-    timer--;
+    setTimer(timer - 1);
     document.getElementById("timer").innerHTML = timer;
   }
   if (timer == 0) {
@@ -36,15 +44,15 @@ function decreaseTimer() {
   }
 }
 
-function startGame() {
+export function startGame() {
   console.log("startgame");
-  showTitleScreen = false;
+  setShowTitleScreen(false);
   document.getElementById("titlescreen").style.display = "none";
   decreaseTimer();
   animate();
 }
 
-function restartGame() {
+export function restartGame() {
   console.log("restartgame");
   document.getElementById("label").style.display = "none";
 
@@ -63,7 +71,7 @@ function restartGame() {
   enemy.canMove = true;
 
   clearTimeout(timerId);
-  timer = 11;
+  setTimer(11);
   decreaseTimer();
 
   document.getElementById("enemyHealth").style.width = enemy.health + "%";

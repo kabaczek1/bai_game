@@ -1,195 +1,19 @@
-const canvas = document.getElementById("gamewindow");
-const c = canvas.getContext("2d");
-
-canvas.width = 1024;
-canvas.height = 576;
-
-const gravity = 0.7;
-
-let showTitleScreen = true;
-
-const background = new Sprite({
-  position: {
-    x: 0,
-    y: 0,
-  },
-  imageSrc: "./img/background.png",
-});
-
-const shop = new Sprite({
-  position: {
-    x: 650,
-    y: 225,
-  },
-  imageSrc: "./img/shop.png",
-  scale: 2,
-  framesMax: 6,
-});
-
-let player = new Fighter({
-  position: { x: 100, y: 200 },
-  velocity: { x: 0, y: 0 },
-  offset: { x: 0, y: 0 },
-  imageSrc: "./img/samuraiMack/Idle.png",
-  framesMax: 8,
-  scale: 2.5,
-  offset: {
-    x: 215,
-    y: 157,
-  },
-  sprites: {
-    idle: {
-      imageSrc: "./img/samuraiMack/Idle.png",
-      framesMax: 8,
-    },
-    run: {
-      imageSrc: "./img/samuraiMack/Run.png",
-      framesMax: 8,
-    },
-    jump: {
-      imageSrc: "./img/samuraiMack/Jump.png",
-      framesMax: 2,
-    },
-    fall: {
-      imageSrc: "./img/samuraiMack/Fall.png",
-      framesMax: 2,
-    },
-    attack1: {
-      imageSrc: "./img/samuraiMack/Attack1.png",
-      framesMax: 6,
-    },
-    takeHit: {
-      imageSrc: "./img/samuraiMack/Take Hit.png",
-      framesMax: 4,
-    },
-    death: {
-      imageSrc: "./img/samuraiMack/Death.png",
-      framesMax: 6,
-    },
-  },
-  attackBox: {
-    offset: {
-      x: 100,
-      y: 50,
-    },
-    width: 160,
-    height: 50,
-  },
-  hitBox: {
-    width: 65,
-    height: 150,
-  },
-  damage: 30,
-});
-
-let player2 = new Fighter({
-  position: { x: 100, y: 200 },
-  velocity: { x: 0, y: 0 },
-  offset: { x: 0, y: 0 },
-  imageSrc: "./img/samuraiHack/Idle.png",
-  framesMax: 8,
-  scale: 2.5,
-  offset: {
-    x: 215,
-    y: 157,
-  },
-  sprites: {
-    idle: {
-      imageSrc: "./img/samuraiHack/Idle.png",
-      framesMax: 8,
-    },
-    run: {
-      imageSrc: "./img/samuraiHack/Run.png",
-      framesMax: 8,
-    },
-    jump: {
-      imageSrc: "./img/samuraiHack/Jump.png",
-      framesMax: 2,
-    },
-    fall: {
-      imageSrc: "./img/samuraiHack/Fall.png",
-      framesMax: 2,
-    },
-    attack1: {
-      imageSrc: "./img/samuraiHack/Attack1.png",
-      framesMax: 6,
-    },
-    takeHit: {
-      imageSrc: "./img/samuraiHack/Take Hit.png",
-      framesMax: 4,
-    },
-    death: {
-      imageSrc: "./img/samuraiHack/Death.png",
-      framesMax: 6,
-    },
-  },
-  attackBox: {
-    offset: {
-      x: 100,
-      y: 50,
-    },
-    width: 160,
-    height: 50,
-  },
-  hitBox: {
-    width: 65,
-    height: 150,
-  },
-  damage: 30,
-});
-
-let enemy = new Fighter({
-  position: { x: 844, y: 200 },
-  velocity: { x: 0, y: 0 },
-  offset: { x: -50, y: 0 },
-  color: "blue",
-  imageSrc: "./img/kenji/Idle.png",
-  framesMax: 4,
-  scale: 2.5,
-  offset: {
-    x: 215,
-    y: 169,
-  },
-  mirror: false,
-  sprites: {
-    idle: {
-      imageSrc: "./img/kenji/Idle.png",
-      framesMax: 4,
-    },
-    run: {
-      imageSrc: "./img/kenji/Run.png",
-      framesMax: 8,
-    },
-    jump: {
-      imageSrc: "./img/kenji/Jump.png",
-      framesMax: 2,
-    },
-    fall: {
-      imageSrc: "./img/kenji/Fall.png",
-      framesMax: 2,
-    },
-    attack1: {
-      imageSrc: "./img/kenji/Attack1.png",
-      framesMax: 4,
-    },
-    takeHit: {
-      imageSrc: "./img/kenji/Take hit.png",
-      framesMax: 3,
-    },
-    death: {
-      imageSrc: "./img/kenji/Death.png",
-      framesMax: 7,
-    },
-  },
-  attackBox: {
-    offset: {
-      x: -170,
-      y: 50,
-    },
-    width: 170,
-    height: 50,
-  },
-});
+import {
+  background,
+  c,
+  canvas,
+  enemy,
+  player,
+  shop,
+  showTitleScreen,
+} from "./modules/globals.mjs";
+import {
+  determineWinner,
+  rectangularCollision,
+  restartGame,
+  startGame,
+  timerId,
+} from "./modules/utils.mjs";
 
 const keys = {
   a: {
@@ -206,7 +30,7 @@ const keys = {
   },
 };
 
-function animate() {
+export function animate() {
   window.requestAnimationFrame(animate);
   // backgrounds
   background.update();
@@ -216,11 +40,11 @@ function animate() {
   c.fillRect(0, 0, canvas.width, canvas.height);
 
   if (player.position.x > enemy.position.x) {
-    enemy.mirror = true
-    player.mirror = true
+    enemy.mirror = true;
+    player.mirror = true;
   } else {
-    enemy.mirror = false
-    player.mirror = false
+    enemy.mirror = false;
+    player.mirror = false;
   }
 
   enemy.update();
