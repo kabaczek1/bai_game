@@ -5,7 +5,10 @@ import {
   PLAYER,
   setShowTitleScreen,
   setTimer,
+  BACKGROUND,
   TIMER,
+  CONTEXT,
+  SHOP,
 } from "./globals.mjs";
 
 export let timerId;
@@ -38,7 +41,7 @@ export function decreaseTimer() {
   timerId = setTimeout(decreaseTimer, 1000);
   if (TIMER > 0) {
     setTimer(TIMER - 1);
-    document.getElementById("TIMER").innerHTML = TIMER;
+    document.getElementById("timer").innerHTML = TIMER;
   }
   if (TIMER == 0) {
     determineWinner({ PLAYER, ENEMY, timerId });
