@@ -3,7 +3,6 @@ import { Fighter } from "./Fighter.mjs";
 export class Kenji extends Fighter {
   constructor(isEnemy = false) {
     super({
-      position: { x: isEnemy ? 844 : 100, y: 200 },
       velocity: { x: 0, y: 0 },
       offset: { x: -50, y: 0 },
       color: "blue",
@@ -53,6 +52,7 @@ export class Kenji extends Fighter {
         width: 170,
         height: 50,
       },
+      isEnemy: isEnemy,
     });
   }
 }

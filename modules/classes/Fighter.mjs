@@ -3,7 +3,6 @@ import { CANVAS, GRAVITY } from "../globals.mjs";
 
 export class Fighter extends Sprite {
   constructor({
-    position,
     velocity,
     color = "red",
     imageSrc,
@@ -15,9 +14,10 @@ export class Fighter extends Sprite {
     attackBox = { offset: {}, width: undefined, height: undefined },
     hitBox = { width: 50, height: 150 },
     damage = 20,
+    isEnemy = false,
   }) {
     super({
-      position,
+      position: { x: isEnemy ? 844 : 100, y: 200 },
       imageSrc,
       scale,
       framesMax,

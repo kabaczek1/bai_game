@@ -3,7 +3,6 @@ import { Fighter } from "./Fighter.mjs";
 export class Samuraj extends Fighter {
   constructor(isEnemy = false) {
     super({
-      position: { x: isEnemy ? 844 : 100, y: 200 },
       velocity: { x: 0, y: 0 },
       offset: { x: 0, y: 0 },
       imageSrc: "./img/samuraiMack/Idle.png",
@@ -56,6 +55,7 @@ export class Samuraj extends Fighter {
         height: 150,
       },
       damage: 30,
+      isEnemy: isEnemy,
     });
   }
 }

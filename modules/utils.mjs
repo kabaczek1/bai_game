@@ -11,8 +11,6 @@ import {
   SHOP,
 } from "./globals.mjs";
 
-export let timerId;
-
 export function rectangularCollision({ rectangle1, rectangle2 }) {
   return (
     rectangle1.attackBox.position.x + rectangle1.attackBox.width >=
@@ -36,7 +34,7 @@ export function determineWinner({ PLAYER, ENEMY, timerId }) {
     document.getElementById("labelText").innerHTML = "Player 2 wins!";
   }
 }
-
+let timerId;
 export function decreaseTimer() {
   timerId = setTimeout(decreaseTimer, 1000);
   if (TIMER > 0) {
@@ -102,7 +100,7 @@ export function restartGame() {
   document.getElementById("enemyHealth").style.width = ENEMY.health + "%";
   document.getElementById("playerHealth").style.width = PLAYER.health + "%";
 }
-export function shouldMirror() {
+function shouldMirror() {
   if (PLAYER.position.x > ENEMY.position.x) {
     ENEMY.mirror = true;
     PLAYER.mirror = true;
@@ -111,7 +109,7 @@ export function shouldMirror() {
     PLAYER.mirror = false;
   }
 }
-export function playerMove() {
+function playerMove() {
   PLAYER.velocity.x = 0;
   if (KEYS.a.pressed && PLAYER.lastKey === "a") {
     PLAYER.velocity.x = -5;
@@ -129,7 +127,7 @@ export function playerMove() {
     PLAYER.switchSprite("fall");
   }
 }
-export function enemyMove() {
+function enemyMove() {
   ENEMY.velocity.x = 0;
   if (KEYS.ArrowLeft.pressed && ENEMY.lastKey === "ArrowLeft") {
     ENEMY.velocity.x = -5;
@@ -147,7 +145,7 @@ export function enemyMove() {
     ENEMY.switchSprite("fall");
   }
 }
-export function playerAttack() {
+function playerAttack() {
   //PLAYER hits
   if (
     rectangularCollision({ rectangle1: PLAYER, rectangle2: ENEMY }) &&
@@ -163,7 +161,7 @@ export function playerAttack() {
     PLAYER.isAttacking = false;
   }
 }
-export function enemyAttack() {
+function enemyAttack() {
   //ENEMY hits
   if (
     rectangularCollision({ rectangle1: ENEMY, rectangle2: PLAYER }) &&
