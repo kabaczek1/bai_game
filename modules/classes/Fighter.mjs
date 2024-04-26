@@ -1,5 +1,5 @@
 import { Sprite } from "./Sprite.mjs";
-import { canvas, gravity } from "../globals.mjs";
+import { CANVAS, GRAVITY } from "../globals.mjs";
 
 export class Fighter extends Sprite {
   constructor({
@@ -64,8 +64,8 @@ export class Fighter extends Sprite {
     this.attackBox.position.y = this.position.y + this.attackBox.offset.y;
 
     // //attack box
-    // c.fillStyle = "black";
-    // c.fillRect(
+    // CONTEXT.fillStyle = "black";
+    // CONTEXT.fillRect(
     //   this.attackBox.position.x,
     //   this.attackBox.position.y,
     //   this.attackBox.width,
@@ -73,22 +73,22 @@ export class Fighter extends Sprite {
     // );
 
     // //hitbox
-    // c.fillStyle = "red";
-    // c.fillRect(this.position.x, this.position.y, this.width, this.height);
+    // CONTEXT.fillStyle = "red";
+    // CONTEXT.fillRect(this.position.x, this.position.y, this.width, this.height);
 
     this.position.y += this.velocity.y;
     this.position.x += this.velocity.x;
 
-    if (this.position.y + this.height + this.velocity.y >= canvas.height - 96) {
+    if (this.position.y + this.height + this.velocity.y >= CANVAS.height - 96) {
       this.velocity.y = 0;
       this.position.y = 330;
     } else {
-      this.velocity.y += gravity;
+      this.velocity.y += GRAVITY;
     }
 
     if (this.position.x <= 0) this.position.x = 0;
-    if (this.position.x >= canvas.width - this.width)
-      this.position.x = canvas.width - this.width;
+    if (this.position.x >= CANVAS.width - this.width)
+      this.position.x = CANVAS.width - this.width;
   }
 
   attack() {

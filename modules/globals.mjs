@@ -2,14 +2,14 @@ import { Kenji } from "./classes/Kenji.mjs";
 import { Samuraj } from "./classes/Samuraj.mjs";
 import { Sprite } from "./classes/Sprite.mjs";
 
-export const canvas = document.getElementById("gamewindow");
-canvas.width = 1024;
-canvas.height = 576;
+export const CANVAS = document.getElementById("gamewindow");
+CANVAS.width = 1024;
+CANVAS.height = 576;
 
-export const c = canvas.getContext("2d");
+export const CONTEXT = CANVAS.getContext("2d");
 
-export const gravity = 0.7;
-export const keys = {
+export const GRAVITY = 0.7;
+export const KEYS = {
   a: {
     pressed: false,
   },
@@ -23,34 +23,34 @@ export const keys = {
     pressed: false,
   },
 };
-export let timer = 10;
+export let TIMER = 10;
 export const setTimer = (value) => {
-  timer = value;
+  TIMER = value;
 };
 
-export let showTitleScreen = true;
+export let SHOW_TITLE_SCREEN = true;
 export const setShowTitleScreen = (value) => {
-  showTitleScreen = value;
+  SHOW_TITLE_SCREEN = value;
 };
 
-export const background = new Sprite({
+export const BACKGROUND = new Sprite({
   position: {
     x: 0,
     y: 0,
   },
-  imageSrc: "./img/background.png",
+  imageSrc: "./img/BACKGROUND.png",
 });
 
-export const shop = new Sprite({
+export const SHOP = new Sprite({
   position: {
     x: 650,
     y: 225,
   },
-  imageSrc: "./img/shop.png",
+  imageSrc: "./img/SHOP.png",
   scale: 2,
   framesMax: 6,
 });
 
-export const player = new Samuraj({ isEnemy: true });
+export const PLAYER = new Samuraj({ isEnemy: true });
 
-export const enemy = new Kenji();
+export const ENEMY = new Kenji();

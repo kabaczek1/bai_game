@@ -1,86 +1,47 @@
-import {
-  background,
-  c,
-  canvas,
-  enemy,
-  keys,
-  player,
-  shop,
-  showTitleScreen,
-} from "./modules/globals.mjs";
-import {
-  enemyAttack,
-  enemyMove,
-  playerAttack,
-  playerMove,
-  restartGame,
-  shouldMirror,
-  startGame,
-} from "./modules/utils.mjs";
-
-export function animate() {
-  window.requestAnimationFrame(animate);
-
-  background.update();
-  shop.update();
-
-  c.fillStyle = "rgba(255, 255, 255, 0.1)";
-  c.fillRect(0, 0, canvas.width, canvas.height);
-
-  shouldMirror();
-
-  enemy.update();
-  player.update();
-
-  playerMove();
-
-  enemyMove();
-
-  playerAttack();
-  enemyAttack();
-}
+import { ENEMY, KEYS, PLAYER, SHOW_TITLE_SCREEN } from "./modules/globals.mjs";
+import { restartGame, startGame } from "./modules/utils.mjs";
 
 window.addEventListener("keydown", (e) => {
-  if (player.canMove) {
+  if (PLAYER.canMove) {
     switch (e.key) {
       case "d":
-        keys.d.pressed = true;
-        player.lastKey = "d";
+        KEYS.d.pressed = true;
+        PLAYER.lastKey = "d";
         break;
       case "a":
-        keys.a.pressed = true;
-        player.lastKey = "a";
+        KEYS.a.pressed = true;
+        PLAYER.lastKey = "a";
         break;
       case "w":
-        if (player.position.y >= 310) player.velocity.y = -20;
+        if (PLAYER.position.y >= 310) PLAYER.velocity.y = -20;
         break;
       case "s":
-        player.attack();
+        PLAYER.attack();
         break;
     }
   }
 
-  if (enemy.canMove) {
+  if (ENEMY.canMove) {
     switch (e.key) {
       case "ArrowRight":
-        keys.ArrowRight.pressed = true;
-        enemy.lastKey = "ArrowRight";
+        KEYS.ArrowRight.pressed = true;
+        ENEMY.lastKey = "ArrowRight";
         break;
       case "ArrowLeft":
-        keys.ArrowLeft.pressed = true;
-        enemy.lastKey = "ArrowLeft";
+        KEYS.ArrowLeft.pressed = true;
+        ENEMY.lastKey = "ArrowLeft";
         break;
       case "ArrowUp":
-        if (enemy.position.y >= 310) enemy.velocity.y = -20;
+        if (ENEMY.position.y >= 310) ENEMY.velocity.y = -20;
         break;
       case "ArrowDown":
-        enemy.attack();
+        ENEMY.attack();
         break;
     }
   }
 
   if (e.key == " ") {
-    if (showTitleScreen) {
+    if (SHOW_TITLE_SCREEN) {
       startGame();
     } else {
       restartGame();
@@ -91,19 +52,19 @@ window.addEventListener("keydown", (e) => {
 window.addEventListener("keyup", (e) => {
   switch (e.key) {
     case "d":
-      keys.d.pressed = false;
+      KEYS.d.pressed = false;
       break;
     case "a":
-      keys.a.pressed = false;
+      KEYS.a.pressed = false;
       break;
   }
 
   switch (e.key) {
     case "ArrowRight":
-      keys.ArrowRight.pressed = false;
+      KEYS.ArrowRight.pressed = false;
       break;
     case "ArrowLeft":
-      keys.ArrowLeft.pressed = false;
+      KEYS.ArrowLeft.pressed = false;
       break;
   }
 });

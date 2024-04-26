@@ -1,11 +1,11 @@
-import { animate } from "../index.js";
 import {
-  enemy,
-  keys,
-  player,
+  CANVAS,
+  ENEMY,
+  KEYS,
+  PLAYER,
   setShowTitleScreen,
   setTimer,
-  timer,
+  TIMER,
 } from "./globals.mjs";
 
 export let timerId;
@@ -22,26 +22,26 @@ export function rectangularCollision({ rectangle1, rectangle2 }) {
   );
 }
 
-export function determineWinner({ player, enemy, timerId }) {
+export function determineWinner({ PLAYER, ENEMY, timerId }) {
   clearTimeout(timerId);
   document.getElementById("label").style.display = "flex";
-  if (player.health === enemy.health) {
+  if (PLAYER.health === ENEMY.health) {
     document.getElementById("labelText").innerHTML = "tie";
-  } else if (player.health > enemy.health) {
+  } else if (PLAYER.health > ENEMY.health) {
     document.getElementById("labelText").innerHTML = "Player 1 wins!";
-  } else if (player.health < enemy.health) {
+  } else if (PLAYER.health < ENEMY.health) {
     document.getElementById("labelText").innerHTML = "Player 2 wins!";
   }
 }
 
 export function decreaseTimer() {
   timerId = setTimeout(decreaseTimer, 1000);
-  if (timer > 0) {
-    setTimer(timer - 1);
-    document.getElementById("timer").innerHTML = timer;
+  if (TIMER > 0) {
+    setTimer(TIMER - 1);
+    document.getElementById("TIMER").innerHTML = TIMER;
   }
-  if (timer == 0) {
-    determineWinner({ player, enemy, timerId });
+  if (TIMER == 0) {
+    determineWinner({ PLAYER, ENEMY, timerId });
   }
 }
 
@@ -52,110 +52,131 @@ export function startGame() {
   decreaseTimer();
   animate();
 }
+export function animate() {
+  window.requestAnimationFrame(animate);
+
+  BACKGROUND.update();
+  SHOP.update();
+
+  CONTEXT.fillStyle = "rgba(255, 255, 255, 0.1)";
+  CONTEXT.fillRect(0, 0, CANVAS.width, CANVAS.height);
+
+  shouldMirror();
+
+  ENEMY.update();
+  PLAYER.update();
+
+  playerMove();
+
+  enemyMove();
+
+  playerAttack();
+  enemyAttack();
+}
 
 export function restartGame() {
   console.log("restartgame");
   document.getElementById("label").style.display = "none";
 
-  player.position = { x: 100, y: 200 };
-  player.health = 100;
-  player.isAttacking = false;
-  player.dead = false;
-  player.image = player.sprites.idle.image;
-  player.canMove = true;
+  PLAYER.position = { x: 100, y: 200 };
+  PLAYER.health = 100;
+  PLAYER.isAttacking = false;
+  PLAYER.dead = false;
+  PLAYER.image = PLAYER.sprites.idle.image;
+  PLAYER.canMove = true;
 
-  enemy.position = { x: 844, y: 200 };
-  enemy.health = 100;
-  enemy.isAttacking = false;
-  enemy.dead = false;
-  enemy.image = enemy.sprites.idle.image;
-  enemy.canMove = true;
+  ENEMY.position = { x: 844, y: 200 };
+  ENEMY.health = 100;
+  ENEMY.isAttacking = false;
+  ENEMY.dead = false;
+  ENEMY.image = ENEMY.sprites.idle.image;
+  ENEMY.canMove = true;
 
   clearTimeout(timerId);
   setTimer(11);
   decreaseTimer();
 
-  document.getElementById("enemyHealth").style.width = enemy.health + "%";
-  document.getElementById("playerHealth").style.width = player.health + "%";
+  document.getElementById("enemyHealth").style.width = ENEMY.health + "%";
+  document.getElementById("playerHealth").style.width = PLAYER.health + "%";
 }
 export function shouldMirror() {
-  if (player.position.x > enemy.position.x) {
-    enemy.mirror = true;
-    player.mirror = true;
+  if (PLAYER.position.x > ENEMY.position.x) {
+    ENEMY.mirror = true;
+    PLAYER.mirror = true;
   } else {
-    enemy.mirror = false;
-    player.mirror = false;
+    ENEMY.mirror = false;
+    PLAYER.mirror = false;
   }
 }
 export function playerMove() {
-  player.velocity.x = 0;
-  if (keys.a.pressed && player.lastKey === "a") {
-    player.velocity.x = -5;
-    player.switchSprite("run");
-  } else if (keys.d.pressed && player.lastKey === "d") {
-    player.velocity.x = 5;
-    player.switchSprite("run");
+  PLAYER.velocity.x = 0;
+  if (KEYS.a.pressed && PLAYER.lastKey === "a") {
+    PLAYER.velocity.x = -5;
+    PLAYER.switchSprite("run");
+  } else if (KEYS.d.pressed && PLAYER.lastKey === "d") {
+    PLAYER.velocity.x = 5;
+    PLAYER.switchSprite("run");
   } else {
-    player.switchSprite("idle");
+    PLAYER.switchSprite("idle");
   }
 
-  if (player.velocity.y < 0) {
-    player.switchSprite("jump");
-  } else if (player.velocity.y > 0) {
-    player.switchSprite("fall");
+  if (PLAYER.velocity.y < 0) {
+    PLAYER.switchSprite("jump");
+  } else if (PLAYER.velocity.y > 0) {
+    PLAYER.switchSprite("fall");
   }
 }
 export function enemyMove() {
-  enemy.velocity.x = 0;
-  if (keys.ArrowLeft.pressed && enemy.lastKey === "ArrowLeft") {
-    enemy.velocity.x = -5;
-    enemy.switchSprite("run");
-  } else if (keys.ArrowRight.pressed && enemy.lastKey === "ArrowRight") {
-    enemy.velocity.x = 5;
-    enemy.switchSprite("run");
+  ENEMY.velocity.x = 0;
+  if (KEYS.ArrowLeft.pressed && ENEMY.lastKey === "ArrowLeft") {
+    ENEMY.velocity.x = -5;
+    ENEMY.switchSprite("run");
+  } else if (KEYS.ArrowRight.pressed && ENEMY.lastKey === "ArrowRight") {
+    ENEMY.velocity.x = 5;
+    ENEMY.switchSprite("run");
   } else {
-    enemy.switchSprite("idle");
+    ENEMY.switchSprite("idle");
   }
 
-  if (enemy.velocity.y < 0) {
-    enemy.switchSprite("jump");
-  } else if (enemy.velocity.y > 0) {
-    enemy.switchSprite("fall");
+  if (ENEMY.velocity.y < 0) {
+    ENEMY.switchSprite("jump");
+  } else if (ENEMY.velocity.y > 0) {
+    ENEMY.switchSprite("fall");
   }
 }
 export function playerAttack() {
-  //player hits
+  //PLAYER hits
   if (
-    rectangularCollision({ rectangle1: player, rectangle2: enemy }) &&
-    player.isAttacking &&
-    player.frameCurrent === 4
+    rectangularCollision({ rectangle1: PLAYER, rectangle2: ENEMY }) &&
+    PLAYER.isAttacking &&
+    PLAYER.frameCurrent === 4
   ) {
-    enemy.takeHit(player.damage);
-    player.isAttacking = false;
-    document.getElementById("enemyHealth").style.width = enemy.health + "%";
+    ENEMY.takeHit(PLAYER.damage);
+    PLAYER.isAttacking = false;
+    document.getElementById("enemyHealth").style.width = ENEMY.health + "%";
   }
-  //player misses
-  if (player.isAttacking && player.frameCurrent === 4) {
-    player.isAttacking = false;
+  //PLAYER misses
+  if (PLAYER.isAttacking && PLAYER.frameCurrent === 4) {
+    PLAYER.isAttacking = false;
   }
 }
 export function enemyAttack() {
-  //enemy hits
+  //ENEMY hits
   if (
-    rectangularCollision({ rectangle1: enemy, rectangle2: player }) &&
-    enemy.isAttacking &&
-    enemy.frameCurrent === 2
+    rectangularCollision({ rectangle1: ENEMY, rectangle2: PLAYER }) &&
+    ENEMY.isAttacking &&
+    ENEMY.frameCurrent === 2
   ) {
-    player.takeHit(enemy.damage);
-    enemy.isAttacking = false;
-    document.getElementById("playerHealth").style.width = player.health + "%";
+    PLAYER.takeHit(ENEMY.damage);
+    ENEMY.isAttacking = false;
+    document.getElementById("playerHealth").style.width = PLAYER.health + "%";
   }
-  //enemy misses
-  if (enemy.isAttacking && enemy.frameCurrent === 2) {
-    enemy.isAttacking = false;
+  //ENEMY misses
+  if (ENEMY.isAttacking && ENEMY.frameCurrent === 2) {
+    ENEMY.isAttacking = false;
   }
 
-  if (enemy.health <= 0 || player.health <= 0) {
-    determineWinner({ player, enemy, timerId });
+  if (ENEMY.health <= 0 || PLAYER.health <= 0) {
+    determineWinner({ PLAYER, ENEMY, timerId });
   }
 }

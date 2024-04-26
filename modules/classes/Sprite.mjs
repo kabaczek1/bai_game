@@ -1,4 +1,4 @@
-import { c } from "../globals.mjs";
+import { CONTEXT } from "../globals.mjs";
 
 export class Sprite {
   constructor({
@@ -25,10 +25,10 @@ export class Sprite {
 
   draw() {
     if (this.mirror) {
-      c.save();
-      c.scale(-1, 1);
+      CONTEXT.save();
+      CONTEXT.scale(-1, 1);
     }
-    c.drawImage(
+    CONTEXT.drawImage(
       this.image,
       this.frameCurrent * (this.image.width / this.framesMax),
       0,
@@ -42,7 +42,7 @@ export class Sprite {
       this.image.height * this.scale
     );
     if (this.mirror) {
-      c.restore();
+      CONTEXT.restore();
     }
   }
 
