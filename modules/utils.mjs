@@ -1,6 +1,7 @@
 import { animate } from "../index.js";
 import {
   enemy,
+  keys,
   player,
   setShowTitleScreen,
   setTimer,
@@ -76,4 +77,85 @@ export function restartGame() {
 
   document.getElementById("enemyHealth").style.width = enemy.health + "%";
   document.getElementById("playerHealth").style.width = player.health + "%";
+}
+export function shouldMirror() {
+  if (player.position.x > enemy.position.x) {
+    enemy.mirror = true;
+    player.mirror = true;
+  } else {
+    enemy.mirror = false;
+    player.mirror = false;
+  }
+}
+export function playerMove() {
+  player.velocity.x = 0;
+  if (keys.a.pressed && player.lastKey === "a") {
+    player.velocity.x = -5;
+    player.switchSprite("run");
+  } else if (keys.d.pressed && player.lastKey === "d") {
+    player.velocity.x = 5;
+    player.switchSprite("run");
+  } else {
+    player.switchSprite("idle");
+  }
+
+  if (player.velocity.y < 0) {
+    player.switchSprite("jump");
+  } else if (player.velocity.y > 0) {
+    player.switchSprite("fall");
+  }
+}
+export function enemyMove() {
+  enemy.velocity.x = 0;
+  if (keys.ArrowLeft.pressed && enemy.lastKey === "ArrowLeft") {
+    enemy.velocity.x = -5;
+    enemy.switchSprite("run");
+  } else if (keys.ArrowRight.pressed && enemy.lastKey === "ArrowRight") {
+    enemy.velocity.x = 5;
+    enemy.switchSprite("run");
+  } else {
+    enemy.switchSprite("idle");
+  }
+
+  if (enemy.velocity.y < 0) {
+    enemy.switchSprite("jump");
+  } else if (enemy.velocity.y > 0) {
+    enemy.switchSprite("fall");
+  }
+}
+export function playerAttack() {
+  //player hits
+  if (
+    rectangularCollision({ rectangle1: player, rectangle2: enemy }) &&
+    player.isAttacking &&
+    player.frameCurrent === 4
+  ) {
+    enemy.takeHit(player.damage);
+    player.isAttacking = false;
+    document.getElementById("enemyHealth").style.width = enemy.health + "%";
+  }
+  //player misses
+  if (player.isAttacking && player.frameCurrent === 4) {
+    player.isAttacking = false;
+  }
+}
+export function enemyAttack() {
+  //enemy hits
+  if (
+    rectangularCollision({ rectangle1: enemy, rectangle2: player }) &&
+    enemy.isAttacking &&
+    enemy.frameCurrent === 2
+  ) {
+    player.takeHit(enemy.damage);
+    enemy.isAttacking = false;
+    document.getElementById("playerHealth").style.width = player.health + "%";
+  }
+  //enemy misses
+  if (enemy.isAttacking && enemy.frameCurrent === 2) {
+    enemy.isAttacking = false;
+  }
+
+  if (enemy.health <= 0 || player.health <= 0) {
+    determineWinner({ player, enemy, timerId });
+  }
 }

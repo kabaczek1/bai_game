@@ -9,7 +9,20 @@ canvas.height = 576;
 export const c = canvas.getContext("2d");
 
 export const gravity = 0.7;
-
+export const keys = {
+  a: {
+    pressed: false,
+  },
+  d: {
+    pressed: false,
+  },
+  ArrowLeft: {
+    pressed: false,
+  },
+  ArrowRight: {
+    pressed: false,
+  },
+};
 export let timer = 10;
 export const setTimer = (value) => {
   timer = value;
@@ -19,10 +32,6 @@ export let showTitleScreen = true;
 export const setShowTitleScreen = (value) => {
   showTitleScreen = value;
 };
-
-export const player = new Samuraj({ isEnemy: true });
-
-export const enemy = new Kenji();
 
 export const background = new Sprite({
   position: {
@@ -41,3 +50,7 @@ export const shop = new Sprite({
   scale: 2,
   framesMax: 6,
 });
+
+export const player = new Samuraj({ isEnemy: true });
+
+export const enemy = new Kenji();
