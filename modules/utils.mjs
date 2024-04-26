@@ -50,6 +50,7 @@ export function startGame() {
   console.log("startgame");
   setShowTitleScreen(false);
   document.getElementById("titlescreen").style.display = "none";
+  getAudio().play();
   decreaseTimer();
   animate();
 }
@@ -93,6 +94,9 @@ export function restartGame() {
   ENEMY.image = ENEMY.sprites.idle.image;
   ENEMY.canMove = true;
 
+  getAudio().pause();
+  getAudio().currentTime = 0;
+  getAudio().play();
   clearTimeout(timerId);
   setTimer(11);
   decreaseTimer();
@@ -180,4 +184,9 @@ function enemyAttack() {
   if (ENEMY.health <= 0 || PLAYER.health <= 0) {
     determineWinner({ PLAYER, ENEMY, timerId });
   }
+}
+function getAudio() {
+  const audio = document.querySelector("audio");
+  audio.volume = 0.2;
+  return audio;
 }
