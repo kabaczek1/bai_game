@@ -1,24 +1,35 @@
-import { Kenji } from "./modules/classes/Kenji.mjs";
-import { Samuraj } from "./modules/classes/Samuraj.mjs";
 import {
   ENEMY,
+  ENEMY_BUTTONS,
   KEYS,
   PLAYER,
+  PLAYER_BUTTONS,
   selectEnemy,
   selectPlayer,
   SHOW_TITLE_SCREEN,
 } from "./modules/globals.mjs";
-import { restartGame, startGame } from "./modules/utils.mjs";
+import {
+  clearEnemyButtonsStyles,
+  clearPlayerButtonsStyles,
+  restartGame,
+  startGame,
+} from "./modules/utils.mjs";
 
-const P_SAMURAJ_BUTTON = document.getElementById("p-samuraj");
-const P_KENJI_BUTTON = document.getElementById("p-kenji");
-const E_SAMURAJ_BUTTON = document.getElementById("e-samuraj");
-const E_KENJI_BUTTON = document.getElementById("e-kenji");
+PLAYER_BUTTONS.forEach((item) => {
+  item.button.addEventListener("click", () => {
+    clearPlayerButtonsStyles();
+    item.button.style.borderColor = "red";
+    selectPlayer(item.character);
+  });
+});
 
-P_SAMURAJ_BUTTON.addEventListener("click", selectPlayer.bind(null, "Samuraj"));
-P_KENJI_BUTTON.addEventListener("click", selectPlayer.bind(null, "Kenji"));
-E_SAMURAJ_BUTTON.addEventListener("click", selectEnemy.bind(null, "Samuraj"));
-E_KENJI_BUTTON.addEventListener("click", selectEnemy.bind(null, "Kenji"));
+ENEMY_BUTTONS.forEach((item) => {
+  item.button.addEventListener("click", () => {
+    clearEnemyButtonsStyles();
+    item.button.style.borderColor = "blue";
+    selectEnemy(item.character);
+  });
+});
 
 window.addEventListener("keydown", (e) => {
   if (PLAYER.canMove) {

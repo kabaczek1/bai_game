@@ -2,6 +2,27 @@ import { Kenji } from "./classes/Kenji.mjs";
 import { Samuraj } from "./classes/Samuraj.mjs";
 import { Sprite } from "./classes/Sprite.mjs";
 
+export const PLAYER_BUTTONS = [
+  {
+    button: document.getElementById("p-samuraj"),
+    character: "Samuraj",
+  },
+  {
+    button: document.getElementById("p-kenji"),
+    character: "Kenji",
+  },
+];
+export const ENEMY_BUTTONS = [
+  {
+    button: document.getElementById("e-samuraj"),
+    character: "Samuraj",
+  },
+  {
+    button: document.getElementById("e-kenji"),
+    character: "Kenji",
+  },
+];
+
 export const CANVAS = document.getElementById("gamewindow");
 CANVAS.width = 1024;
 CANVAS.height = 576;

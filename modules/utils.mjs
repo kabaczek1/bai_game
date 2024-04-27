@@ -9,6 +9,8 @@ import {
   TIMER,
   CONTEXT,
   SHOP,
+  PLAYER_BUTTONS,
+  ENEMY_BUTTONS,
 } from "./globals.mjs";
 
 export function rectangularCollision({ rectangle1, rectangle2 }) {
@@ -90,6 +92,16 @@ export function restartGame() {
 
   document.getElementById("enemyHealth").style.width = ENEMY.health + "%";
   document.getElementById("playerHealth").style.width = PLAYER.health + "%";
+}
+export function clearPlayerButtonsStyles() {
+  PLAYER_BUTTONS.forEach((item) => {
+    item.button.style.borderColor = "white";
+  });
+}
+export function clearEnemyButtonsStyles() {
+  ENEMY_BUTTONS.forEach((item) => {
+    item.button.style.borderColor = "white";
+  });
 }
 function shouldMirror() {
   if (PLAYER.position.x > ENEMY.position.x) {
