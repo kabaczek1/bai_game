@@ -2,14 +2,17 @@ import {
   ENEMY,
   ENEMY_BUTTONS,
   KEYS,
+  MAPS,
   PLAYER,
   PLAYER_BUTTONS,
   selectEnemy,
+  selectMap,
   selectPlayer,
   SHOW_TITLE_SCREEN,
 } from "./modules/globals.mjs";
 import {
   clearEnemyButtonsStyles,
+  clearMapsButtonsStyles,
   clearPlayerButtonsStyles,
   restartGame,
   startGame,
@@ -28,6 +31,14 @@ ENEMY_BUTTONS.forEach((item) => {
     clearEnemyButtonsStyles();
     item.button.style.borderColor = "blue";
     selectEnemy(item.character);
+  });
+});
+
+MAPS.forEach((item) => {
+  item.map.addEventListener("click", () => {
+    clearMapsButtonsStyles();
+    item.map.style.borderColor = "green";
+    selectMap(item.map);
   });
 });
 

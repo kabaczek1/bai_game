@@ -27,7 +27,9 @@
       <div id="label" class="label">
         <div class="label-container">
           <div id="labelText"></div>
-          <div style="font-size: 2rem">Press [space] to restart the game</div>
+          <div style="font-size: 2rem; font-style: italic">
+            Press [space] to restart the game
+          </div>
         </div>
       </div>
       <canvas id="gamewindow"> </canvas>
@@ -41,7 +43,13 @@
               >[a] [s] [d] [w]
             </p>
             <div class="titlescreen-characters">
-              <button id="p-samuraj" class="titlescreen-character">S</button>
+              <button
+                id="p-samuraj"
+                class="titlescreen-character"
+                style="border-color: red"
+              >
+                S
+              </button>
               <button id="p-kenji" class="titlescreen-character">K</button>
             </div>
           </div>
@@ -53,10 +61,63 @@
               >[arrow keys]
             </p>
             <div class="titlescreen-characters">
-              <button id="e-samuraj" class="titlescreen-character">S</button>
+              <button
+                id="e-samuraj"
+                class="titlescreen-character"
+                style="border-color: blue"
+              >
+                S
+              </button>
               <button id="e-kenji" class="titlescreen-character">K</button>
             </div>
           </div>
+        </div>
+        <div class="titlescreen-maps-container">
+          <button
+            id="map1"
+            style="
+              background-image: url('./img/background.png');
+              border-color: green;
+            "
+            class="titlescreen-map"
+          >
+            Map 1
+          </button>
+          <button
+            id="map2"
+            style="background-image: url('./img/title_bg.jpg')"
+            class="titlescreen-map"
+          >
+            Map 2
+          </button>
+          <button
+            id="map3"
+            style="background-image: url('./img/background.png')"
+            class="titlescreen-map"
+          >
+            Map 3
+          </button>
+          <button
+            id="map4"
+            style="background-image: url('./img/background.png')"
+            class="titlescreen-map"
+          >
+            Map 4
+          </button>
+          <button
+            id="map5"
+            style="background-image: url('./img/background.png')"
+            class="titlescreen-map"
+          >
+            Map 5
+          </button>
+          <button
+            id="map6"
+            style="background-image: url('./img/background.png')"
+            class="titlescreen-map"
+          >
+            Map 6
+          </button>
         </div>
         <span style="font-style: italic">Press [space] to start the game!</span>
       </div>

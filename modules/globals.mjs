@@ -22,6 +22,32 @@ export const ENEMY_BUTTONS = [
     character: "Kenji",
   },
 ];
+export const MAPS = [
+  {
+    map: document.getElementById("map1"),
+    imageSrc: "./img/background.png",
+  },
+  {
+    map: document.getElementById("map2"),
+    imageSrc: "./img/title_bg.png",
+  },
+  {
+    map: document.getElementById("map3"),
+    imageSrc: "./img/background.png",
+  },
+  {
+    map: document.getElementById("map4"),
+    imageSrc: "./img/background.png",
+  },
+  {
+    map: document.getElementById("map5"),
+    imageSrc: "./img/background.png",
+  },
+  {
+    map: document.getElementById("map6"),
+    imageSrc: "./img/background.png",
+  },
+];
 
 export const CANVAS = document.getElementById("gamewindow");
 CANVAS.width = 1024;
@@ -54,13 +80,27 @@ export const setShowTitleScreen = (value) => {
   SHOW_TITLE_SCREEN = value;
 };
 
-export const BACKGROUND = new Sprite({
+export let BACKGROUND = new Sprite({
   position: {
     x: 0,
     y: 0,
   },
   imageSrc: "./img/BACKGROUND.png",
 });
+
+export const selectMap = (map) => {
+  MAPS.filter((item) => {
+    if (item.map === map) {
+      BACKGROUND = new Sprite({
+        position: {
+          x: 0,
+          y: 0,
+        },
+        imageSrc: item.imageSrc,
+      });
+    }
+  });
+};
 
 export const SHOP = new Sprite({
   position: {

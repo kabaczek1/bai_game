@@ -11,6 +11,7 @@ import {
   SHOP,
   PLAYER_BUTTONS,
   ENEMY_BUTTONS,
+  MAPS,
 } from "./globals.mjs";
 
 export function rectangularCollision({ rectangle1, rectangle2 }) {
@@ -101,6 +102,11 @@ export function clearPlayerButtonsStyles() {
 export function clearEnemyButtonsStyles() {
   ENEMY_BUTTONS.forEach((item) => {
     item.button.style.borderColor = "white";
+  });
+}
+export function clearMapsButtonsStyles() {
+  MAPS.forEach((item) => {
+    item.map.style.borderColor = "white";
   });
 }
 function shouldMirror() {

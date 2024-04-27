@@ -140,3 +140,16 @@ body {
   font-size: 2rem;
   background-color: transparent;
 }
+.titlescreen-maps-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 10px;
+  padding: 20px;
+}
+.titlescreen-map {
+  border: solid 2px white;
+  width: 180px;
+  height: 60px;
+  cursor: pointer;
+  background-color: transparent;
+}
