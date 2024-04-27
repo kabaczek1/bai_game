@@ -45,11 +45,21 @@ export class Fighter extends Sprite {
     this.dead = false;
     this.canMove = true;
     this.damage = damage;
+    this.isEnemy = isEnemy;
 
     for (const sprite in this.sprites) {
       sprites[sprite].image = new Image();
       sprites[sprite].image.src = sprites[sprite].imageSrc;
     }
+  }
+
+  respawn() {
+    this.position = { x: this.isEnemy ? 844 : 100, y: 200 };
+    this.health = 100;
+    this.isAttacking = false;
+    this.dead = false;
+    this.image = this.sprites.idle.image;
+    this.canMove = true;
   }
 
   update() {

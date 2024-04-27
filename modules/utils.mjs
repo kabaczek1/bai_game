@@ -80,23 +80,10 @@ export function restartGame() {
   console.log("restartgame");
   document.getElementById("label").style.display = "none";
 
-  PLAYER.position = { x: 100, y: 200 };
-  PLAYER.health = 100;
-  PLAYER.isAttacking = false;
-  PLAYER.dead = false;
-  PLAYER.image = PLAYER.sprites.idle.image;
-  PLAYER.canMove = true;
+  PLAYER.respawn();
+  ENEMY.respawn();
 
-  ENEMY.position = { x: 844, y: 200 };
-  ENEMY.health = 100;
-  ENEMY.isAttacking = false;
-  ENEMY.dead = false;
-  ENEMY.image = ENEMY.sprites.idle.image;
-  ENEMY.canMove = true;
-
-  getAudio().pause();
-  getAudio().currentTime = 0;
-  getAudio().play();
+  restartAudio();
   clearTimeout(timerId);
   setTimer(11);
   decreaseTimer();
@@ -189,4 +176,9 @@ function getAudio() {
   const audio = document.querySelector("audio");
   audio.volume = 0.2;
   return audio;
+}
+function restartAudio() {
+  getAudio().pause();
+  getAudio().currentTime = 0;
+  getAudio().play();
 }
