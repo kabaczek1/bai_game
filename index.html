@@ -32,12 +32,29 @@
       </div>
       <canvas id="gamewindow"> </canvas>
       <div id="titlescreen" class="titlescreen-container">
-        Press [space] to start the game!
+        <h1>Fighting game!</h1>
+        <div class="titlescreen-char-choosing-container">
+          <div>
+            <p>Player 1: [a] [s] [d] [w]</p>
+            <div class="titlescreen-characters">
+              <button id="p-samuraj" class="titlescreen-character">S</button>
+              <button id="p-kenji" class="titlescreen-character">K</button>
+            </div>
+          </div>
+          <div class="vl"></div>
+          <div>
+            <p>Player 2: [arrow keys]</p>
+            <div class="titlescreen-characters">
+              <button id="e-samuraj" class="titlescreen-character">S</button>
+              <button id="e-kenji" class="titlescreen-character">K</button>
+            </div>
+          </div>
+        </div>
+        <span>Press [space] to start the game!</span>
       </div>
     </div>
     <script type="module" src="./modules/utils.mjs"></script>
     <script type="module" src="index.js"></script>
-
     <script type="module" src="./modules/classes/Kenji.mjs"></script>
     <script type="module" src="./modules/classes/Samuraj.mjs"></script>
     <script type="module" src="./modules/classes/Fighter.mjs"></script>

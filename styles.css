@@ -10,7 +10,11 @@ body {
   margin: 0;
   background: black;
 }
-
+.vl {
+  border-left: 4px solid white;
+  height: 100%;
+  padding: 5px;
+}
 .container {
   position: relative;
   display: inline-block;
@@ -94,16 +98,45 @@ body {
   flex-direction: column;
 }
 .titlescreen-container {
-  background-color: #000;
+  background-image: url("./img/title_bg.jpg");
   position: absolute;
   color: white;
   font-family: monospace;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  height: 100%;
+  width: 100%;
   top: 0;
   bottom: 0;
   right: 0;
   left: 0;
-  font-size: 1rem;
+  font-size: 2rem;
+  padding: 20px;
+}
+.titlescreen-char-choosing-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: start;
+  width: 100%;
+  height: 100%;
+}
+.titlescreen-characters {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-gap: 10px;
+}
+.titlescreen-character {
+  border: solid 2px white;
+  padding: 6px;
+  text-align: center;
+  cursor: pointer;
+  width: 60px;
+  height: 60px;
+  color: white;
+  font-family: monospace;
+  font-size: 2rem;
+  background-color: transparent;
 }

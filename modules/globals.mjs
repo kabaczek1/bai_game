@@ -51,6 +51,26 @@ export const SHOP = new Sprite({
   framesMax: 6,
 });
 
-export const PLAYER = new Samuraj({ isEnemy: true });
+export let PLAYER = new Samuraj();
+export const selectPlayer = (character) => {
+  switch (character) {
+    case "Samuraj":
+      PLAYER = new Samuraj();
+      break;
+    case "Kenji":
+      PLAYER = new Kenji();
+      break;
+  }
+};
 
-export const ENEMY = new Kenji();
+export let ENEMY = new Samuraj({ isEnemy: true });
+export const selectEnemy = (character) => {
+  switch (character) {
+    case "Samuraj":
+      ENEMY = new Samuraj({ isEnemy: true });
+      break;
+    case "Kenji":
+      ENEMY = new Kenji({ isEnemy: true });
+      break;
+  }
+};

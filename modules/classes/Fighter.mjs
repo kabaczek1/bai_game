@@ -3,13 +3,13 @@ import { CANVAS, GRAVITY } from "../globals.mjs";
 
 export class Fighter extends Sprite {
   constructor({
-    velocity,
+    velocity = { x: 0, y: 0 },
     color = "red",
     imageSrc,
     scale = 1,
     framesMax = 1,
     offset = { x: 0, y: 0 },
-    mirror,
+    mirror = false,
     sprites,
     attackBox = { offset: {}, width: undefined, height: undefined },
     hitBox = { width: 50, height: 150 },
