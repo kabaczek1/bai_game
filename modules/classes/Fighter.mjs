@@ -1,81 +1,23 @@
-class Sprite {
+import { Sprite } from "./Sprite.mjs";
+import { CANVAS, GRAVITY } from "../globals.mjs";
+
+export class Fighter extends Sprite {
   constructor({
-    position,
-    imageSrc,
-    scale = 1,
-    framesMax = 1,
-    offset = { x: 0, y: 0 },
-    mirror = false,
-  }) {
-    this.position = position;
-    this.width = 50;
-    this.height = 150;
-    this.image = new Image();
-    this.image.src = imageSrc;
-    this.scale = scale;
-    this.framesMax = framesMax;
-    this.frameCurrent = 0;
-    this.framesElapsed = 0;
-    this.framesHold = 5;
-    this.offset = offset;
-    this.mirror = mirror; 
-  }
-
-  draw() {
-    if (this.mirror) {
-      c.save();
-      c.scale(-1, 1);
-    }
-    c.drawImage(
-      this.image,
-      this.frameCurrent * (this.image.width / this.framesMax),
-      0,
-      this.image.width / this.framesMax,
-      this.image.height,
-      this.mirror ? - this.position.x - this.width - this.offset.x : this.position.x - this.offset.x,
-      this.position.y - this.offset.y,
-      (this.image.width / this.framesMax) * this.scale,
-      this.image.height * this.scale
-    );
-    if (this.mirror) {
-      c.restore();
-    }
-  }
-
-  animateFrames() {
-    this.framesElapsed++;
-    if (this.framesElapsed % this.framesHold === 0) {
-      if (this.frameCurrent < this.framesMax - 1) {
-        this.frameCurrent++;
-      } else {
-        this.frameCurrent = 0;
-      }
-    }
-  }
-
-  update() {
-    this.draw();
-    this.animateFrames();
-  }
-}
-
-class Fighter extends Sprite {
-  constructor({
-    position,
-    velocity,
+    velocity = { x: 0, y: 0 },
     color = "red",
     imageSrc,
     scale = 1,
     framesMax = 1,
     offset = { x: 0, y: 0 },
-    mirror,
+    mirror = false,
     sprites,
     attackBox = { offset: {}, width: undefined, height: undefined },
     hitBox = { width: 50, height: 150 },
     damage = 20,
+    isEnemy = false,
   }) {
     super({
-      position,
+      position: { x: isEnemy ? 844 : 100, y: 200 },
       imageSrc,
       scale,
       framesMax,
@@ -103,6 +45,7 @@ class Fighter extends Sprite {
     this.dead = false;
     this.canMove = true;
     this.damage = damage;
+    this.isEnemy = isEnemy;
 
     for (const sprite in this.sprites) {
       sprites[sprite].image = new Image();
@@ -110,19 +53,29 @@ class Fighter extends Sprite {
     }
   }
 
+  respawn() {
+    this.position = { x: this.isEnemy ? 844 : 100, y: 200 };
+    this.health = 100;
+    this.isAttacking = false;
+    this.dead = false;
+    this.image = this.sprites.idle.image;
+    this.canMove = true;
+  }
+
   update() {
     this.draw();
     if (!this.dead) this.animateFrames();
 
-    if (this.mirror && this.attackBox.offset.x > 0) this.attackBox.position.x = this.position.x - 2 * this.attackBox.offset.x;
-    else if (this.mirror && this.attackBox.offset.x < 0) this.attackBox.position.x = this.position.x + this.width;
+    if (this.mirror && this.attackBox.offset.x > 0)
+      this.attackBox.position.x = this.position.x - 2 * this.attackBox.offset.x;
+    else if (this.mirror && this.attackBox.offset.x < 0)
+      this.attackBox.position.x = this.position.x + this.width;
     else this.attackBox.position.x = this.position.x + this.attackBox.offset.x;
     this.attackBox.position.y = this.position.y + this.attackBox.offset.y;
-    
 
     // //attack box
-    // c.fillStyle = "black";
-    // c.fillRect(
+    // CONTEXT.fillStyle = "black";
+    // CONTEXT.fillRect(
     //   this.attackBox.position.x,
     //   this.attackBox.position.y,
     //   this.attackBox.width,
@@ -130,22 +83,22 @@ class Fighter extends Sprite {
     // );
 
     // //hitbox
-    // c.fillStyle = "red";
-    // c.fillRect(this.position.x, this.position.y, this.width, this.height);
+    // CONTEXT.fillStyle = "red";
+    // CONTEXT.fillRect(this.position.x, this.position.y, this.width, this.height);
 
     this.position.y += this.velocity.y;
     this.position.x += this.velocity.x;
 
-    if (this.position.y + this.height + this.velocity.y >= canvas.height - 96) {
+    if (this.position.y + this.height + this.velocity.y >= CANVAS.height - 96) {
       this.velocity.y = 0;
       this.position.y = 330;
     } else {
-      this.velocity.y += gravity;
+      this.velocity.y += GRAVITY;
     }
 
     if (this.position.x <= 0) this.position.x = 0;
-    if (this.position.x >= canvas.width - this.width)
-      this.position.x = canvas.width - this.width;
+    if (this.position.x >= CANVAS.width - this.width)
+      this.position.x = CANVAS.width - this.width;
   }
 
   attack() {
