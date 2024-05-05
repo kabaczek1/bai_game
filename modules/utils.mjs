@@ -25,7 +25,6 @@ export function rectangularCollision({ rectangle1, rectangle2 }) {
     rectangle1.attackBox.position.y <= rectangle2.position.y + rectangle2.height
   );
 }
-
 export function determineWinner({ PLAYER, ENEMY, timerId }) {
   clearTimeout(timerId);
   document.getElementById("label").style.display = "flex";
@@ -33,8 +32,14 @@ export function determineWinner({ PLAYER, ENEMY, timerId }) {
     document.getElementById("labelText").innerHTML = "tie";
   } else if (PLAYER.health > ENEMY.health) {
     document.getElementById("labelText").innerHTML = "Player 1 wins!";
+    ENEMY.canMove = false;
+    ENEMY.switchSprite("death");
+    document.getElementById("enemyHealth").style.width = 0 + "%";
   } else if (PLAYER.health < ENEMY.health) {
     document.getElementById("labelText").innerHTML = "Player 2 wins!";
+    PLAYER.canMove = false;
+    PLAYER.switchSprite("death");
+    document.getElementById("playerHealth").style.width = 0 + "%";
   }
 }
 let timerId;
@@ -48,12 +53,16 @@ export function decreaseTimer() {
     determineWinner({ PLAYER, ENEMY, timerId });
   }
 }
-
 export function startGame() {
   console.log("startgame");
   setShowTitleScreen(false);
   document.getElementById("titlescreen").style.display = "none";
-  getAudio().play();
+  const audio = document.querySelector("#bg-music");
+  const fightAudio = document.querySelector("#music-fight");
+  audio.volume = 0.5;
+  audio.loop = true;
+  fightAudio.play();
+  audio.play();
   decreaseTimer();
   animate();
 }
@@ -78,7 +87,6 @@ export function animate() {
   playerAttack();
   enemyAttack();
 }
-
 export function restartGame() {
   console.log("restartgame");
   document.getElementById("label").style.display = "none";
@@ -86,7 +94,7 @@ export function restartGame() {
   PLAYER.respawn();
   ENEMY.respawn();
 
-  restartAudio();
+  //restartAudio();
   clearTimeout(timerId);
   setTimer(11);
   decreaseTimer();
@@ -111,20 +119,20 @@ export function clearMapsButtonsStyles() {
 }
 function shouldMirror() {
   if (PLAYER.position.x > ENEMY.position.x) {
-    ENEMY.mirror = true;
-    PLAYER.mirror = true;
+    if (ENEMY.canMove) ENEMY.mirror = false;
+    if (PLAYER.canMove) PLAYER.mirror = true;
   } else {
-    ENEMY.mirror = false;
-    PLAYER.mirror = false;
+    if (ENEMY.canMove) ENEMY.mirror = true;
+    if (PLAYER.canMove) PLAYER.mirror = false;
   }
 }
 function playerMove() {
   PLAYER.velocity.x = 0;
   if (KEYS.a.pressed && PLAYER.lastKey === "a") {
-    PLAYER.velocity.x = -5;
+    PLAYER.velocity.x = -8;
     PLAYER.switchSprite("run");
   } else if (KEYS.d.pressed && PLAYER.lastKey === "d") {
-    PLAYER.velocity.x = 5;
+    PLAYER.velocity.x = 8;
     PLAYER.switchSprite("run");
   } else {
     PLAYER.switchSprite("idle");
@@ -139,10 +147,10 @@ function playerMove() {
 function enemyMove() {
   ENEMY.velocity.x = 0;
   if (KEYS.ArrowLeft.pressed && ENEMY.lastKey === "ArrowLeft") {
-    ENEMY.velocity.x = -5;
+    ENEMY.velocity.x = -8;
     ENEMY.switchSprite("run");
   } else if (KEYS.ArrowRight.pressed && ENEMY.lastKey === "ArrowRight") {
-    ENEMY.velocity.x = 5;
+    ENEMY.velocity.x = 8;
     ENEMY.switchSprite("run");
   } else {
     ENEMY.switchSprite("idle");
@@ -159,14 +167,14 @@ function playerAttack() {
   if (
     rectangularCollision({ rectangle1: PLAYER, rectangle2: ENEMY }) &&
     PLAYER.isAttacking &&
-    PLAYER.frameCurrent === 4
+    PLAYER.frameCurrent === PLAYER.attackFrame
   ) {
     ENEMY.takeHit(PLAYER.damage);
     PLAYER.isAttacking = false;
     document.getElementById("enemyHealth").style.width = ENEMY.health + "%";
   }
   //PLAYER misses
-  if (PLAYER.isAttacking && PLAYER.frameCurrent === 4) {
+  if (PLAYER.isAttacking && PLAYER.frameCurrent === PLAYER.attackFrame) {
     PLAYER.isAttacking = false;
   }
 }
@@ -175,28 +183,18 @@ function enemyAttack() {
   if (
     rectangularCollision({ rectangle1: ENEMY, rectangle2: PLAYER }) &&
     ENEMY.isAttacking &&
-    ENEMY.frameCurrent === 2
+    ENEMY.frameCurrent === ENEMY.attackFrame
   ) {
     PLAYER.takeHit(ENEMY.damage);
     ENEMY.isAttacking = false;
     document.getElementById("playerHealth").style.width = PLAYER.health + "%";
   }
   //ENEMY misses
-  if (ENEMY.isAttacking && ENEMY.frameCurrent === 2) {
+  if (ENEMY.isAttacking && ENEMY.frameCurrent === ENEMY.attackFrame) {
     ENEMY.isAttacking = false;
   }
 
   if (ENEMY.health <= 0 || PLAYER.health <= 0) {
     determineWinner({ PLAYER, ENEMY, timerId });
   }
-}
-function getAudio() {
-  const audio = document.querySelector("audio");
-  audio.volume = 0.2;
-  return audio;
-}
-function restartAudio() {
-  getAudio().pause();
-  getAudio().currentTime = 0;
-  getAudio().play();
 }

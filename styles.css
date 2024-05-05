@@ -54,6 +54,8 @@ body {
   right: 0;
   width: 100%;
   bottom: 0;
+  transition: all;
+  transition-duration: 500ms;
 }
 .enemyhealth {
   position: absolute;
@@ -63,6 +65,8 @@ body {
   right: 0;
   left: 0;
   bottom: 0;
+  transition: all;
+  transition-duration: 500ms;
 }
 .timer {
   background-color: black;
@@ -130,16 +134,56 @@ body {
 }
 .titlescreen-character {
   border: solid 2px white;
-  padding: 6px;
   text-align: center;
   cursor: pointer;
   width: 60px;
   height: 60px;
-  color: white;
-  font-family: monospace;
-  font-size: 2rem;
-  background-color: transparent;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: transparent;
 }
+
+#p-samuraj {
+  background-image: url('/img/mugs/Samurai Hack.png');
+}
+
+#e-samuraj {
+  background-image: url('/img/mugs/Samurai Hack.png');
+}
+
+#p-kenji {
+  background-image: url('/img/mugs/Kenji.png');
+}
+
+#e-kenji {
+  background-image: url('/img/mugs/Kenji.png');
+}
+
+#p-ken {
+  background-image: url('/img/mugs/Junkie Ken.png');
+}
+
+#e-ken {
+  background-image: url('/img/mugs/Junkie Ken.png');
+}
+
+#p-joe {
+  background-image: url('/img/mugs/Joe Ice.png');
+}
+
+#e-joe {
+  background-image: url('/img/mugs/Joe Ice.png');
+}
+
+#p-hippolite {
+  background-image: url('/img/mugs/Hippolite.png');
+}
+
+#e-hippolite {
+  background-image: url('/img/mugs/Hippolite.png');
+}
+
 .titlescreen-maps-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;

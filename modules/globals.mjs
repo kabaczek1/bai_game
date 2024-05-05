@@ -1,5 +1,8 @@
+import { Ken } from "./classes/Ken.mjs";
 import { Kenji } from "./classes/Kenji.mjs";
 import { Samuraj } from "./classes/Samuraj.mjs";
+import { Hippolite } from "./classes/Hippolite.mjs";
+import { Joe } from "./classes/Joe.mjs";
 import { Sprite } from "./classes/Sprite.mjs";
 
 export const PLAYER_BUTTONS = [
@@ -11,6 +14,18 @@ export const PLAYER_BUTTONS = [
     button: document.getElementById("p-kenji"),
     character: "Kenji",
   },
+  {
+    button: document.getElementById("p-ken"),
+    character: "Ken",
+  },
+  {
+    button: document.getElementById("p-joe"),
+    character: "Joe",
+  },
+  {
+    button: document.getElementById("p-hippolite"),
+    character: "Hippolite",
+  },
 ];
 export const ENEMY_BUTTONS = [
   {
@@ -20,6 +35,18 @@ export const ENEMY_BUTTONS = [
   {
     button: document.getElementById("e-kenji"),
     character: "Kenji",
+  },
+  {
+    button: document.getElementById("e-ken"),
+    character: "Ken",
+  },
+  {
+    button: document.getElementById("e-joe"),
+    character: "Joe",
+  },
+  {
+    button: document.getElementById("e-hippolite"),
+    character: "Hippolite",
   },
 ];
 export const MAPS = [
@@ -117,11 +144,26 @@ export const selectPlayer = (character) => {
   switch (character) {
     case "Samuraj":
       PLAYER = new Samuraj();
+      document.querySelector("#player-choice-hack-music").play();
       break;
     case "Kenji":
       PLAYER = new Kenji();
+      document.querySelector("#player-choice-kenji-music").play();
+      break;
+    case "Ken":
+      PLAYER = new Ken();
+      document.querySelector("#player-choice-ken-music").play();
+      break;
+    case "Joe":
+      PLAYER = new Joe();
+      document.querySelector("#player-choice-joe-music").play();
+      break;
+    case "Hippolite":
+      PLAYER = new Hippolite();
+      document.querySelector("#player-choice-hippolite-music").play();
       break;
   }
+  console.log(character)
 };
 
 export let ENEMY = new Samuraj({ isEnemy: true });
@@ -129,9 +171,23 @@ export const selectEnemy = (character) => {
   switch (character) {
     case "Samuraj":
       ENEMY = new Samuraj({ isEnemy: true });
+      document.querySelector("#player-choice-hack-music").play();
       break;
     case "Kenji":
       ENEMY = new Kenji({ isEnemy: true });
+      document.querySelector("#player-choice-kenji-music").play();
+      break;
+    case "Ken":
+      ENEMY = new Ken({ isEnemy: true });
+      document.querySelector("#player-choice-ken-music").play();
+      break;
+    case "Joe":
+      ENEMY = new Joe({ isEnemy: true });
+      document.querySelector("#player-choice-joe-music").play();
+      break;
+    case "Hippolite":
+      ENEMY = new Hippolite({ isEnemy: true });
+      document.querySelector("#player-choice-hippolite-music").play();
       break;
   }
 };

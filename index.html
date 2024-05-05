@@ -10,7 +10,14 @@
   <body>
     <div class="container">
       <header class="header">
-        <audio src="./audio/mk.mp3"></audio>
+        <audio id="bg-music" src="./audio/mk.mp3"></audio>
+        <audio id="player-choice-hack-music" src="./audio/player-choice-hack.mp3"></audio>
+        <audio id="player-choice-kenji-music" src="./audio/player-choice-kenji.mp3"></audio>
+        <audio id="player-choice-ken-music" src="./audio/player-choice-ken.mp3"></audio>
+        <audio id="player-choice-joe-music" src="./audio/player-choice-joe.mp3"></audio>
+        <audio id="player-choice-hippolite-music" src="./audio/player-choice-hippolite.mp3"></audio>
+        <audio id="bg-music-player-choice" src="./audio/player-choice-bg-music.mp3"></audio>
+        <audio id="music-fight" src="./audio/fight.mp3"></audio>
 
         <div class="playerhealth-container">
           <div class="hp-red"></div>
@@ -40,7 +47,7 @@
             <p>
               <span style="color: red; font-style: italic; font-weight: 900"
                 >Player 1: </span
-              >[a] [s] [d] [w]
+              >[wsad]
             </p>
             <div class="titlescreen-characters">
               <button
@@ -51,6 +58,9 @@
                 S
               </button>
               <button id="p-kenji" class="titlescreen-character">K</button>
+              <button id="p-ken" class="titlescreen-character">K</button>
+              <button id="p-joe" class="titlescreen-character">K</button>
+              <button id="p-hippolite" class="titlescreen-character">K</button>
             </div>
           </div>
           <div class="vl"></div>
@@ -69,6 +79,9 @@
                 S
               </button>
               <button id="e-kenji" class="titlescreen-character">K</button>
+              <button id="e-ken" class="titlescreen-character">K</button>
+              <button id="e-joe" class="titlescreen-character">K</button>
+              <button id="e-hippolite" class="titlescreen-character">K</button>
             </div>
           </div>
         </div>

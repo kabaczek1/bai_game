@@ -6,7 +6,7 @@ export class Kenji extends Fighter {
       color: "blue",
       imageSrc: "./img/kenji/Idle.png",
       framesMax: 4,
-      scale: 2.5,
+      scale: 1,
       offset: {
         x: 215,
         y: 169,
@@ -43,12 +43,18 @@ export class Kenji extends Fighter {
       },
       attackBox: {
         offset: {
-          x: -170,
+          x: 50,
           y: 50,
         },
         width: 170,
         height: 50,
       },
+      attackFrame: 2,
+      hitBox: {
+        width: 50,
+        height: 150,
+      },
+      damage: 20,
       isEnemy: isEnemy,
     });
   }

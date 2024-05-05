@@ -18,6 +18,8 @@ import {
   startGame,
 } from "./modules/utils.mjs";
 
+let menuAudio;
+
 PLAYER_BUTTONS.forEach((item) => {
   item.button.addEventListener("click", () => {
     clearPlayerButtonsStyles();
@@ -40,6 +42,13 @@ MAPS.forEach((item) => {
     item.map.style.borderColor = "green";
     selectMap(item.map);
   });
+});
+
+window.addEventListener("click", (e) => {
+  menuAudio = document.querySelector("#bg-music-player-choice");
+  menuAudio.volume = 0.5;
+  menuAudio.loop = true;
+  menuAudio.play();
 });
 
 window.addEventListener("keydown", (e) => {
@@ -83,6 +92,7 @@ window.addEventListener("keydown", (e) => {
 
   if (e.key == " ") {
     if (SHOW_TITLE_SCREEN) {
+      menuAudio.pause()
       startGame();
     } else {
       restartGame();

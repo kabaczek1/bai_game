@@ -3,40 +3,40 @@ import { Fighter } from "./Fighter.mjs";
 export class Samuraj extends Fighter {
   constructor(isEnemy = false) {
     super({
-      imageSrc: "./img/samuraiMack/Idle.png",
+      imageSrc: "./img/samuraiHack/Idle.png",
       framesMax: 8,
-      scale: 2.5,
+      scale: 1,
       offset: {
         x: 215,
         y: 157,
       },
       sprites: {
         idle: {
-          imageSrc: "./img/samuraiMack/Idle.png",
+          imageSrc: "./img/samuraiHack/Idle.png",
           framesMax: 8,
         },
         run: {
-          imageSrc: "./img/samuraiMack/Run.png",
+          imageSrc: "./img/samuraiHack/Run.png",
           framesMax: 8,
         },
         jump: {
-          imageSrc: "./img/samuraiMack/Jump.png",
+          imageSrc: "./img/samuraiHack/Jump.png",
           framesMax: 2,
         },
         fall: {
-          imageSrc: "./img/samuraiMack/Fall.png",
+          imageSrc: "./img/samuraiHack/Fall.png",
           framesMax: 2,
         },
         attack1: {
-          imageSrc: "./img/samuraiMack/Attack1.png",
+          imageSrc: "./img/samuraiHack/Attack1.png",
           framesMax: 6,
         },
         takeHit: {
-          imageSrc: "./img/samuraiMack/Take Hit.png",
+          imageSrc: "./img/samuraiHack/Take Hit.png",
           framesMax: 4,
         },
         death: {
-          imageSrc: "./img/samuraiMack/Death.png",
+          imageSrc: "./img/samuraiHack/Death.png",
           framesMax: 6,
         },
       },
@@ -48,6 +48,7 @@ export class Samuraj extends Fighter {
         width: 160,
         height: 50,
       },
+      attackFrame: 4,
       hitBox: {
         width: 65,
         height: 150,

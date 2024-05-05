@@ -1,5 +1,5 @@
 import { Sprite } from "./Sprite.mjs";
-import { CANVAS, GRAVITY } from "../globals.mjs";
+import { CANVAS, GRAVITY, CONTEXT } from "../globals.mjs";
 
 export class Fighter extends Sprite {
   constructor({
@@ -12,6 +12,7 @@ export class Fighter extends Sprite {
     mirror = false,
     sprites,
     attackBox = { offset: {}, width: undefined, height: undefined },
+    attackFrame = 2,
     hitBox = { width: 50, height: 150 },
     damage = 20,
     isEnemy = false,
@@ -38,6 +39,7 @@ export class Fighter extends Sprite {
       width: attackBox.width,
       height: attackBox.height,
     };
+    this.attackFrame = attackFrame;
     this.color = color;
     this.isAttacking;
     this.health = 100;
@@ -66,10 +68,7 @@ export class Fighter extends Sprite {
     this.draw();
     if (!this.dead) this.animateFrames();
 
-    if (this.mirror && this.attackBox.offset.x > 0)
-      this.attackBox.position.x = this.position.x - 2 * this.attackBox.offset.x;
-    else if (this.mirror && this.attackBox.offset.x < 0)
-      this.attackBox.position.x = this.position.x + this.width;
+    if (this.mirror) this.attackBox.position.x = this.position.x - (this.attackBox.offset.x - this.width) - this.attackBox.width;
     else this.attackBox.position.x = this.position.x + this.attackBox.offset.x;
     this.attackBox.position.y = this.position.y + this.attackBox.offset.y;
 
@@ -84,12 +83,12 @@ export class Fighter extends Sprite {
 
     // //hitbox
     // CONTEXT.fillStyle = "red";
-    // CONTEXT.fillRect(this.position.x, this.position.y, this.width, this.height);
+    // CONTEXT.fillRect(this.position.x, this.position.y + 150, this.width, -this.height);
 
     this.position.y += this.velocity.y;
     this.position.x += this.velocity.x;
 
-    if (this.position.y + this.height + this.velocity.y >= CANVAS.height - 96) {
+    if (this.position.y + 246 + this.velocity.y >= CANVAS.height) {
       this.velocity.y = 0;
       this.position.y = 330;
     } else {
@@ -108,12 +107,6 @@ export class Fighter extends Sprite {
 
   takeHit(damage) {
     this.health -= damage;
-    if (this.health <= 0) {
-      this.canMove = false;
-      this.switchSprite("death");
-    } else {
-      this.switchSprite("takeHit");
-    }
   }
 
   switchSprite(sprite) {
