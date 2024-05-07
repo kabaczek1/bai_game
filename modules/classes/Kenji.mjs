@@ -54,7 +54,7 @@ export class Kenji extends Fighter {
         width: 50,
         height: 150,
       },
-      damage: 20,
+      damage: 6,
       isEnemy: isEnemy,
     });
   }

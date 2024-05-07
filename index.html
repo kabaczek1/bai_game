@@ -18,18 +18,35 @@
         <audio id="player-choice-hippolite-music" src="./audio/player-choice-hippolite.mp3"></audio>
         <audio id="bg-music-player-choice" src="./audio/player-choice-bg-music.mp3"></audio>
         <audio id="music-fight" src="./audio/fight.mp3"></audio>
+        <audio id="round-1" src="./audio/round-1.mp3"></audio>
+        <audio id="round-2" src="./audio/round-2.mp3"></audio>
+        <audio id="round-3" src="./audio/round-3.mp3"></audio>
+        <audio id="wins" src="./audio/wins.mp3"></audio>
 
-        <div class="playerhealth-container">
-          <div class="hp-red"></div>
-          <div id="playerHealth" class="playerhealth"></div>
+        <div class="player-box">
+          <div class="playerhealth-container">
+            <div class="hp-red"></div>
+            <div id="playerHealth" class="playerhealth"></div>
+          </div>
+          <div class="rounds-won-player">
+            <div id="round-1-player" class="round-won"></div>
+            <div id="round-2-player" class="round-won"></div>
+          </div> 
         </div>
 
-        <div id="timer" class="timer">10</div>
+        <div id="timer" class="timer">20</div>
 
-        <div class="enemyhealth-container">
-          <div class="hp-red"></div>
-          <div id="enemyHealth" class="enemyhealth"></div>
+        <div class="enemy-box">
+          <div class="enemyhealth-container">
+            <div class="hp-red"></div>
+            <div id="enemyHealth" class="enemyhealth"></div>
+          </div>
+          <div class="rounds-won-enemy">
+            <div id="round-1-enemy" class="round-won"></div>
+            <div id="round-2-enemy" class="round-won"></div>
+          </div> 
         </div>
+
       </header>
       <div id="label" class="label">
         <div class="label-container">
@@ -91,45 +108,103 @@
             style="
               background-image: url('./img/background.png');
               border-color: green;
+              background-size: cover;
+              background-position: center;
+              color: white;
+              text-shadow: -1px 1px 0 #000,
+                1px 1px 0 #000,
+                1px -1px 0 #000,
+                -1px -1px 0 #000;
+              font-weight: bold;
             "
             class="titlescreen-map"
           >
-            Map 1
+            Enchanted Forest
           </button>
           <button
             id="map2"
-            style="background-image: url('./img/title_bg.jpg')"
+            style="
+              background-image: url('./img/dojo.png');
+              background-size: cover;
+              background-position: center;
+              color: white;
+              text-shadow: -1px 1px 0 #000,
+                1px 1px 0 #000,
+                1px -1px 0 #000,
+                -1px -1px 0 #000;
+              font-weight: bold;
+            "
             class="titlescreen-map"
           >
-            Map 2
+            Mojo-Dojo-Casa-Chata
           </button>
           <button
             id="map3"
-            style="background-image: url('./img/background.png')"
+            style="
+              background-image: url('./img/lake.png');
+              background-size: cover;
+              background-position: center;
+              color: white;
+              text-shadow: -1px 1px 0 #000,
+                1px 1px 0 #000,
+                1px -1px 0 #000,
+                -1px -1px 0 #000;
+              font-weight: bold;
+            "
             class="titlescreen-map"
           >
-            Map 3
+            Lake of Animu
           </button>
           <button
             id="map4"
-            style="background-image: url('./img/background.png')"
+            style="
+              background-image: url('./img/dark.png');
+              background-size: cover;
+              background-position: center;
+              color: white;
+              text-shadow: -1px 1px 0 #000,
+                1px 1px 0 #000,
+                1px -1px 0 #000,
+                -1px -1px 0 #000;
+              font-weight: bold;
+            "
             class="titlescreen-map"
           >
-            Map 4
+            Temple of Doom
           </button>
           <button
             id="map5"
-            style="background-image: url('./img/background.png')"
+            style="
+              background-image: url('./img/mk.png');
+              background-size: cover;
+              background-position: center;
+              color: white;
+              text-shadow: -1px 1px 0 #000,
+                1px 1px 0 #000,
+                1px -1px 0 #000,
+                -1px -1px 0 #000;
+              font-weight: bold;
+            "
             class="titlescreen-map"
           >
-            Map 5
+            Shang Tsung's Island
           </button>
           <button
             id="map6"
-            style="background-image: url('./img/background.png')"
+            style="
+              background-image: url('./img/city.png');
+              background-size: cover;
+              background-position: center;
+              color: white;
+              text-shadow: -1px 1px 0 #000,
+                1px 1px 0 #000,
+                1px -1px 0 #000,
+                -1px -1px 0 #000;
+              font-weight: bold;
+            "
             class="titlescreen-map"
           >
-            Map 6
+            Ching Chong City
           </button>
         </div>
         <span style="font-style: italic">Press [space] to start the game!</span>

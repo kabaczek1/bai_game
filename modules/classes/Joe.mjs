@@ -53,7 +53,7 @@ export class Joe extends Fighter {
         width: 80,
         height: 150,
       },
-      damage: 50,
+      damage: 15,
       isEnemy: isEnemy,
     });
   }

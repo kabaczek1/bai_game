@@ -4,7 +4,7 @@ export class Ken extends Fighter {
   constructor(isEnemy = false) {
     super({
       imageSrc: "./img/junkieKen/Idle.png",
-      framesMax: 8,
+      framesMax: 10,
       scale: 1,
       offset: {
         x: 115,
@@ -53,7 +53,7 @@ export class Ken extends Fighter {
         width: 100,
         height: 105,
       },
-      damage: 40,
+      damage: 10,
       isEnemy: isEnemy,
     });
   }

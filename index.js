@@ -8,7 +8,7 @@ import {
   selectEnemy,
   selectMap,
   selectPlayer,
-  SHOW_TITLE_SCREEN,
+  GAME_STATE,
 } from "./modules/globals.mjs";
 import {
   clearEnemyButtonsStyles,
@@ -44,11 +44,13 @@ MAPS.forEach((item) => {
   });
 });
 
-window.addEventListener("click", (e) => {
-  menuAudio = document.querySelector("#bg-music-player-choice");
-  menuAudio.volume = 0.5;
-  menuAudio.loop = true;
-  menuAudio.play();
+window.addEventListener("click" || "DOMContentLoaded", (e) => {
+  if (GAME_STATE === 0) {
+    menuAudio = document.querySelector("#bg-music-player-choice");
+    menuAudio.volume = 0.5;
+    menuAudio.loop = true;
+    menuAudio.play();
+  }
 });
 
 window.addEventListener("keydown", (e) => {
@@ -91,7 +93,7 @@ window.addEventListener("keydown", (e) => {
   }
 
   if (e.key == " ") {
-    if (SHOW_TITLE_SCREEN) {
+    if (GAME_STATE === 0) {
       menuAudio.pause()
       startGame();
     } else {

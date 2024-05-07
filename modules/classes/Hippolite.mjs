@@ -53,7 +53,7 @@ export class Hippolite extends Fighter {
         width: 80,
         height: 150,
       },
-      damage: 20,
+      damage: 5,
       isEnemy: isEnemy,
     });
   }

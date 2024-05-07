@@ -56,23 +56,23 @@ export const MAPS = [
   },
   {
     map: document.getElementById("map2"),
-    imageSrc: "./img/title_bg.png",
+    imageSrc: "./img/dojo.png",
   },
   {
     map: document.getElementById("map3"),
-    imageSrc: "./img/background.png",
+    imageSrc: "./img/lake.png",
   },
   {
     map: document.getElementById("map4"),
-    imageSrc: "./img/background.png",
+    imageSrc: "./img/dark.png",
   },
   {
     map: document.getElementById("map5"),
-    imageSrc: "./img/background.png",
+    imageSrc: "./img/mk.png",
   },
   {
     map: document.getElementById("map6"),
-    imageSrc: "./img/background.png",
+    imageSrc: "./img/city.png",
   },
 ];
 
@@ -82,7 +82,7 @@ CANVAS.height = 576;
 
 export const CONTEXT = CANVAS.getContext("2d");
 
-export const GRAVITY = 0.7;
+export const GRAVITY = 1;
 export const KEYS = {
   a: {
     pressed: false,
@@ -102,9 +102,14 @@ export const setTimer = (value) => {
   TIMER = value;
 };
 
-export let SHOW_TITLE_SCREEN = true;
-export const setShowTitleScreen = (value) => {
-  SHOW_TITLE_SCREEN = value;
+// 0 - start screen
+// 1 - round 1
+// 2 - round 2
+// 3 - round 3
+// 4 - game end
+export let GAME_STATE = 0;
+export const setGameState = (value) => {
+  GAME_STATE = value;
 };
 
 export let BACKGROUND = new Sprite({
@@ -140,53 +145,64 @@ export const SHOP = new Sprite({
 });
 
 export let PLAYER = new Samuraj();
+export let PLAYER_NAME = "Samurai Hack";
 export const selectPlayer = (character) => {
   switch (character) {
     case "Samuraj":
       PLAYER = new Samuraj();
+      PLAYER_NAME = "Samurai Hack";
       document.querySelector("#player-choice-hack-music").play();
       break;
     case "Kenji":
       PLAYER = new Kenji();
+      PLAYER_NAME = "Kenji";
       document.querySelector("#player-choice-kenji-music").play();
       break;
     case "Ken":
       PLAYER = new Ken();
+      PLAYER_NAME = "Junkie Ken";
       document.querySelector("#player-choice-ken-music").play();
       break;
     case "Joe":
+      PLAYER_NAME = "Joe Ice";
       PLAYER = new Joe();
       document.querySelector("#player-choice-joe-music").play();
       break;
     case "Hippolite":
+      PLAYER_NAME = "Hippolite";
       PLAYER = new Hippolite();
       document.querySelector("#player-choice-hippolite-music").play();
       break;
   }
-  console.log(character)
 };
 
 export let ENEMY = new Samuraj({ isEnemy: true });
+export let ENEMY_NAME = "Samurai Hack";
 export const selectEnemy = (character) => {
   switch (character) {
     case "Samuraj":
       ENEMY = new Samuraj({ isEnemy: true });
+      ENEMY_NAME = "Samurai Hack";
       document.querySelector("#player-choice-hack-music").play();
       break;
     case "Kenji":
       ENEMY = new Kenji({ isEnemy: true });
+      ENEMY_NAME = "Kenji";
       document.querySelector("#player-choice-kenji-music").play();
       break;
     case "Ken":
       ENEMY = new Ken({ isEnemy: true });
+      ENEMY_NAME = "Junkie Ken";
       document.querySelector("#player-choice-ken-music").play();
       break;
     case "Joe":
       ENEMY = new Joe({ isEnemy: true });
+      ENEMY_NAME = "Joe Ice";
       document.querySelector("#player-choice-joe-music").play();
       break;
     case "Hippolite":
       ENEMY = new Hippolite({ isEnemy: true });
+      ENEMY_NAME = "Hippolite";
       document.querySelector("#player-choice-hippolite-music").play();
       break;
   }

@@ -53,7 +53,7 @@ export class Samuraj extends Fighter {
         width: 65,
         height: 150,
       },
-      damage: 30,
+      damage: 8,
       isEnemy: isEnemy,
     });
   }
