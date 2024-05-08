@@ -95,7 +95,7 @@ window.addEventListener("keydown", (e) => {
   if (e.key == " ") {
     if (GAME_STATE === 0) {
       menuAudio.pause();
-      startGame();
+      startGame().then(() => {});
     } else {
       restartGame().then(() => {});
     }

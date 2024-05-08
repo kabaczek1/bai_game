@@ -61,7 +61,18 @@ export class Fighter extends Sprite {
     this.isAttacking = false;
     this.dead = false;
     this.image = this.sprites.idle.image;
+    this.switchSprite("idle")
+    this.framesMax = this.sprites.idle.framesMax;
     this.canMove = true;
+  }
+
+  die() {
+    this.health = 0;
+    this.isAttacking = false;
+    this.image = this.sprites.death.image;
+    this.switchSprite("death")
+    this.framesMax = this.sprites.death.framesMax;
+    this.canMove = false;
   }
 
   update() {

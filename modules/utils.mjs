@@ -59,16 +59,11 @@ function sayMyName(name) {
     nameAudio.onended = res;
   });
 }
-async function sayWins(name) {
-  await sayMyName(name);
-  const winsAudio = document.querySelector("#wins");
-  return new Promise((res) => {
-    winsAudio.play();
-    winsAudio.onended = res;
-  });
+function sayWins(name) {
+  sayMyName(name).then(() => {document.querySelector("#wins").play()});
 }
 
-export async function determineWinner({ PLAYER, ENEMY, timerId }) {
+export function determineWinner({ PLAYER, ENEMY, timerId }) {
   clearTimeout(timerId);
   if (!winner) {
     winner = true;
@@ -77,8 +72,7 @@ export async function determineWinner({ PLAYER, ENEMY, timerId }) {
       document.getElementById("labelText").innerHTML = "tie";
     } else if (PLAYER.health > ENEMY.health) {
       document.getElementById("labelText").innerHTML = PLAYER_NAME + " wins!";
-      ENEMY.canMove = false;
-      ENEMY.switchSprite("death");
+      ENEMY.die();
       document.getElementById("enemyHealth").style.width = 0 + "%";
       if (GAME_STATE === 1) {
         document.getElementById("round-1-player").className =
@@ -97,11 +91,10 @@ export async function determineWinner({ PLAYER, ENEMY, timerId }) {
           "round-won-filled";
         setGameState(3);
       }
-      await sayWins(PLAYER_NAME);
+      sayWins(PLAYER_NAME);
     } else if (PLAYER.health < ENEMY.health) {
       document.getElementById("labelText").innerHTML = ENEMY_NAME + " wins!";
-      PLAYER.canMove = false;
-      PLAYER.switchSprite("death");
+      PLAYER.die();
       document.getElementById("playerHealth").style.width = 0 + "%";
       if (GAME_STATE === 1) {
         document.getElementById("round-1-enemy").className = "round-won-filled";
@@ -117,7 +110,7 @@ export async function determineWinner({ PLAYER, ENEMY, timerId }) {
         document.getElementById("round-1-enemy").className = "round-won-filled";
         setGameState(3);
       }
-      await sayWins(ENEMY_NAME);
+      sayWins(ENEMY_NAME);
     }
   }
 }
