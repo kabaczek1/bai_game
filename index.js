@@ -94,10 +94,10 @@ window.addEventListener("keydown", (e) => {
 
   if (e.key == " ") {
     if (GAME_STATE === 0) {
-      menuAudio.pause()
+      menuAudio.pause();
       startGame();
     } else {
-      restartGame();
+      restartGame().then(() => {});
     }
   }
 });

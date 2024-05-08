@@ -54,18 +54,18 @@ function sayMyName(name) {
       nameAudio = document.querySelector("#player-choice-hippolite-music");
       break;
   }
-  return new Promise(res=>{
-    nameAudio.play()
-    nameAudio.onended = res
-  })
+  return new Promise((res) => {
+    nameAudio.play();
+    nameAudio.onended = res;
+  });
 }
 async function sayWins(name) {
-  await sayMyName(name)
+  await sayMyName(name);
   const winsAudio = document.querySelector("#wins");
-  return new Promise(res=>{
-    winsAudio.play()
-    winsAudio.onended = res
-  })
+  return new Promise((res) => {
+    winsAudio.play();
+    winsAudio.onended = res;
+  });
 }
 
 export async function determineWinner({ PLAYER, ENEMY, timerId }) {
@@ -81,36 +81,43 @@ export async function determineWinner({ PLAYER, ENEMY, timerId }) {
       ENEMY.switchSprite("death");
       document.getElementById("enemyHealth").style.width = 0 + "%";
       if (GAME_STATE === 1) {
-        document.getElementById("round-1-player").className = "round-won-filled"
-        setGameState(2)
+        document.getElementById("round-1-player").className =
+          "round-won-filled";
+        setGameState(2);
+      } else if (
+        GAME_STATE === 3 ||
+        (GAME_STATE === 2 &&
+          document.getElementById("round-1-enemy").className === "round-won")
+      ) {
+        document.getElementById("round-2-player").className =
+          "round-won-filled";
+        setGameState(4);
+      } else {
+        document.getElementById("round-1-player").className =
+          "round-won-filled";
+        setGameState(3);
       }
-      else if (GAME_STATE === 3 || (GAME_STATE === 2 && document.getElementById("round-1-enemy").className === "round-won")) {
-        document.getElementById("round-2-player").className = "round-won-filled"
-        setGameState(4)
-      }
-      else {
-        document.getElementById("round-1-player").className = "round-won-filled"
-        setGameState(3)
-      }
-      await sayWins(PLAYER_NAME)
+      await sayWins(PLAYER_NAME);
     } else if (PLAYER.health < ENEMY.health) {
       document.getElementById("labelText").innerHTML = ENEMY_NAME + " wins!";
       PLAYER.canMove = false;
       PLAYER.switchSprite("death");
       document.getElementById("playerHealth").style.width = 0 + "%";
       if (GAME_STATE === 1) {
-        document.getElementById("round-1-enemy").className = "round-won-filled"
-        setGameState(2)
+        document.getElementById("round-1-enemy").className = "round-won-filled";
+        setGameState(2);
+      } else if (
+        GAME_STATE === 3 ||
+        (GAME_STATE === 2 &&
+          document.getElementById("round-1-player").className === "round-won")
+      ) {
+        document.getElementById("round-2-enemy").className = "round-won-filled";
+        setGameState(4);
+      } else {
+        document.getElementById("round-1-enemy").className = "round-won-filled";
+        setGameState(3);
       }
-      else if (GAME_STATE === 3 || (GAME_STATE === 2 && document.getElementById("round-1-player").className === "round-won")) {
-        document.getElementById("round-2-enemy").className = "round-won-filled"
-        setGameState(4)
-      }
-      else {
-        document.getElementById("round-1-enemy").className = "round-won-filled"
-        setGameState(3)
-      }
-      await sayWins(ENEMY_NAME)
+      await sayWins(ENEMY_NAME);
     }
   }
 }
@@ -137,24 +144,24 @@ function sayRound() {
       roundAudio = document.querySelector("#round-3");
       break;
   }
-  return new Promise(res=>{
-    roundAudio.play()
-    roundAudio.onended = res
-  })
+  return new Promise((res) => {
+    roundAudio.play();
+    roundAudio.onended = res;
+  });
 }
 async function doTheAnnouncing() {
   await sayRound();
   const fightAudio = document.querySelector("#music-fight");
-  return new Promise(res=>{
-    fightAudio.play()
-    fightAudio.onended = res
-  })
+  return new Promise((res) => {
+    fightAudio.play();
+    fightAudio.onended = res;
+  });
 }
 export async function startGame() {
   setGameState(1);
   document.getElementById("titlescreen").style.display = "none";
   animate();
-  await doTheAnnouncing()
+  await doTheAnnouncing();
   gameRunning = true;
   setTimer(21);
   decreaseTimer();
@@ -175,31 +182,30 @@ export function animate() {
     playerMove();
 
     enemyMove();
-  
+
     playerAttack();
     enemyAttack();
   }
-  
+
   ENEMY.update();
   PLAYER.update();
 }
 export async function restartGame() {
-  audio.pause()
+  audio.pause();
   if (GAME_STATE === 4) {
-    location.reload()
-  }
-  else {
+    location.reload();
+  } else {
     document.getElementById("label").style.display = "none";
-  
+
     PLAYER.respawn();
     ENEMY.respawn();
-      
+
     document.getElementById("enemyHealth").style.width = ENEMY.health + "%";
     document.getElementById("playerHealth").style.width = PLAYER.health + "%";
     gameRunning = false;
-    await doTheAnnouncing()
+    await doTheAnnouncing();
     gameRunning = true;
-  
+
     clearTimeout(timerId);
     setTimer(21);
     decreaseTimer();
